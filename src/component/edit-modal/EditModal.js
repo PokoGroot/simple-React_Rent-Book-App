@@ -3,12 +3,14 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input } from 'react
 import { Link } from 'react-router-dom'
 import Axios from 'axios'
 
-export class AddModal extends React.Component {
+export class EditModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
             modal: false,
+            book_id: props.book_id,
             formData: {
+                book_id: props.book_id,
                 title: '',
                 description: '',
                 image: '',
@@ -38,7 +40,7 @@ export class AddModal extends React.Component {
     }
 
     handleSubmit(event) {
-        Axios.post('http://localhost:3030/book/', this.state.formData)
+        Axios.patch(`http://localhost:3030/book/${this.state.formData.book_id}`, this.state.formData)
             .then(res => {
                 this.setState({
                 showModal:true,
@@ -58,23 +60,25 @@ export class AddModal extends React.Component {
     }
 
     render() {
+        console.log(this.state.formData.book_id)
         return (
+            
             <div>
-                <Link onClick={this.toggle} className="sidelist">Add Book</Link>
+                <Link onClick={this.toggle} className="sidelist">Edit Book</Link>
                 <Modal size="lg" isOpen={this.state.modal}>
                     <form onSubmit={this.handleSubmit}>
-                        <ModalHeader>Add Book</ModalHeader>
+                        <ModalHeader>Edit Book</ModalHeader>
                         <ModalBody>
                             <div className="row">
                                 <div className="form-group col-md-12">
                                     <label>Title:</label>
-                                    <input required name="title" type="text" value={this.state.name} onChange={this.handleForm} className="form-control" />
+                                    <input name="title" type="text" value={this.state.name} onChange={this.handleForm} className="form-control" />
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="form-group col-md-12">
                                     <label>Description:</label>
-                                    <input required name="description" type="text" value={this.state.team} onChange={this.handleForm} className="form-control" />
+                                    <input name="description" type="text" value={this.state.team} onChange={this.handleForm} className="form-control" />
                                 </div>
                             </div>
                             <div className="row">
