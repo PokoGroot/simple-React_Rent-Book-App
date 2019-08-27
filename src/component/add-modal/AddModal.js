@@ -1,5 +1,7 @@
+
+
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from 'react-router-dom'
 import Axios from 'axios'
 
@@ -15,11 +17,16 @@ export class AddModal extends React.Component {
                 date_released: '',
                 genre: '',
                 availability: ''
-            },
-            genres: []
+            }
     };
 
         this.toggle = this.toggle.bind(this);
+        // this.handleChangeTitle = this.handleChangeTitle.bind(this);
+        // this.handleChangeDescription = this.handleChangeDescription.bind(this);
+        // this.handleChangeImage = this.handleChangeImage.bind(this);
+        // this.handleChangeDateReleased = this.handleChangeDateReleased.bind(this);
+        // this.handleChangeGenre = this.handleChangeGenre.bind(this);
+        // this.handleChangeAvailability = this.handleChangeAvailability.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -50,58 +57,49 @@ export class AddModal extends React.Component {
             event.preventDefault();
             window.location.reload()
     }
-    componentDidMount() {
-        Axios.get(`http://localhost:3030/genre/`)
-            .then (genre => this.setState({genres: genre.data}))
-            // .then (genre => console.log(genre.data))
-            .catch (err => console.log ('error =', err));
-    }
 
     render() {
         return (
             <div>
                 <Link onClick={this.toggle} className="sidelist">Add Book</Link>
-                <Modal size="lg" isOpen={this.state.modal}>
+                <Modal isOpen={this.state.modal}>
                     <form onSubmit={this.handleSubmit}>
                         <ModalHeader>Add Book</ModalHeader>
                         <ModalBody>
                             <div className="row">
                                 <div className="form-group col-md-12">
                                     <label>Title:</label>
-                                    <input required name="title" type="text" value={this.state.name} onChange={this.handleForm} className="form-control" />
+                                    <input name="title" type="text" value={this.state.name} onChange={this.handleForm} className="form-control" />
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="form-group col-md-12">
                                     <label>Description:</label>
-                                    <input required name="description" type="text" value={this.state.team} onChange={this.handleForm} className="form-control" />
+                                    <input name="description" type="text" value={this.state.team} onChange={this.handleForm} className="form-control" />
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="form-group col-md-12">
                                     <label>Image:</label>
-                                    <input required name="image" type="text" value={this.country} onChange={this.handleForm} className="form-control" />
+                                    <input name="image" type="text" value={this.country} onChange={this.handleForm} className="form-control" />
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="form-group col-md-12">
                                     <label>Date Released:</label>
-                                    <input required name="date_released" type="date" value={this.country} onChange={this.handleForm} className="form-control" />
+                                    <input name="date_released" type="date" value={this.country} onChange={this.handleForm} className="form-control" />
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="form-group col-md-12">
                                     <label>Genre:</label>
-
-                                    <Input required type="select" name="genre_id" id="genreLabel" onChange={this.handleForm}>
-                                        {this.state.genres.map((genre) => {return <option value={genre.genre_id} key={genre.genre_id}>{genre.genre_name}</option>})}
-                                    </Input>
+                                    <input name="genre_id" type="text" value={this.country} onChange={this.handleForm} className="form-control" />
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="form-group col-md-12">
                                     <label>Availability:</label>
-                                    <input required name="availability" type="text" value={this.country} onChange={this.handleForm} className="form-control" />
+                                    <input name="availability" type="text" value={this.country} onChange={this.handleForm} className="form-control" />
                                 </div>
                             </div>
                         </ModalBody>

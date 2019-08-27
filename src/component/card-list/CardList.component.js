@@ -17,7 +17,7 @@ export class CardList extends React.Component {
     componentDidMount() {
         Axios.get('http://localhost:3030/book')
             .then (book => this.setState({books: book.data.result}))
-            // .then (book => console.log(book.data.result))
+            // .then (res => console.log(res.data))
             .catch (err => console.log ('error =', err));
     }
 
