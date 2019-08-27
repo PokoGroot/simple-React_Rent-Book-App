@@ -6,7 +6,7 @@ const initialState = {
     isFulfilled: false
 }
 
-const itemList = ( state = initialState, action) => {
+const item = ( state = initialState, action) => {
     switch (action.type) {
         case 'GET_ITEM_PENDING':
             return {
@@ -28,7 +28,9 @@ const itemList = ( state = initialState, action) => {
                 isFulfilled: true,
                 itemList: action.payload.data.data
             }
-        default:
+        default: 
             return state
     }
 }
+
+export default item

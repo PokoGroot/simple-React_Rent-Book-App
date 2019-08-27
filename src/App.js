@@ -7,10 +7,13 @@ import Login from './pages/login/login'
 import Register from './pages/register/register'
 import DetailBook from './pages/detail-book/detail-book'
 import Explore from './pages/explore/explore'
+import store from './Publics/Store'
 
 import './App.css';
 
-function App() {
+
+
+const App = () => {
   return (
     <Router>
       <Provider store={store}>

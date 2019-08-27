@@ -6,6 +6,23 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './login.css';
 
 class Login extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            loggedIn: false,
+            email: '',
+            password: '',
+        }
+    }
+
+    handleFormChange = (e) => {
+        const value = e.target.value
+        const name = e.target.name
+
+        this.setState({
+            [name]: value
+        })
+    }
 
     render(){
         return (
@@ -28,12 +45,10 @@ class Login extends React.Component {
                         </div>
                         <Form>
                             <FormGroup>
-                                {/* <Label for="exampleEmail">Email</Label> */}
-                                <Input type="email" name="email" id="exampleEmail" placeholder="Email" style={{width: '300px'}}/>
+                                <Input type="email" name="email" id="exampleEmail" placeholder="Email" style={{width: '300px'}} onChange={this.handleFormChange} />
                             </FormGroup>
                             <FormGroup>
-                                {/* <Label for="examplePassword">Password</Label> */}
-                                <Input type="password" name="password" id="examplePassword" placeholder="Password" style={{width: '300px'}}/>
+                                <Input type="password" name="password" id="examplePassword" placeholder="Password" style={{width: '300px'}} onChange={this.handleFormChange} />
                             </FormGroup>
                             <FormGroup check style={{marginBottom: '20px'}}>
                                 <Label check>

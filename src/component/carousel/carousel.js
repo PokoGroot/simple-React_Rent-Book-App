@@ -6,15 +6,15 @@ import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export class SlideView extends React.Component {
-    // constructor(){
-    //     super()
-    //     this.state = {
-    //         books: []
-    //     }
-    // }
-    state= {
-        books:[]
+    constructor(){
+        super()
+        this.state = {
+            books: []
+        }
     }
+    // state= {
+    //     books:[]
+    // }
 
     componentDidMount() {
         Axios.get('http://localhost:3030/book')
@@ -27,9 +27,9 @@ export class SlideView extends React.Component {
         const books = this.state.books
         return (
             <Carousel
-            showStatus={false}
-            showThumbs={false}
-            autoPlay={true}
+                showStatus={false}
+                showThumbs={false}
+                autoPlay={true}
             >
                 {books.map((book) => {
                     return (<div style={{width: '1340px', height: '300px'}} key={book.book_id}>

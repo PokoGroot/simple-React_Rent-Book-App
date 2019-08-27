@@ -25,16 +25,22 @@ export class NavHead extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            sidebarOpen: false
+            sidebarOpen: false,
+            search: ''
         };
-        this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
     }
 
-    onSetSidebarOpen(open) {
+    onSetSidebarOpen = (open) => {
         this.setState({ sidebarOpen: open });
     }
-    onSetSidebarClose(close) {
+    onSetSidebarClose = (close) => {
         this.setState({ sidebarOpen: close });
+    }
+
+    handleSearch = (e) => {
+        this.setState({search: e.target.value})
+        console.log(this.search)
+        console.log(e.target.value)
     }
 
     render() {
@@ -54,6 +60,7 @@ export class NavHead extends React.Component {
                 </div>
             </div>
         )
+
         return (
             <React.Fragment>
                 <Sidebar
@@ -79,7 +86,7 @@ export class NavHead extends React.Component {
                                     <FontAwesomeIcon icon={faSearch}/>
                                 </InputGroup.Text>
                             </InputGroup.Prepend>
-                            <FormControl type="text" placeholder="Search book" className="mr-sm-2 btn-search"  style={{width:'350px'}} />
+                            <FormControl type="text" placeholder="Search book" className="mr-sm-2 btn-search"  style={{width:'350px'}} onChange={this.handleSearch} />
                         </Form>
                         <img src={logo} style={{width: '50px'}} alt="Not Found"/>
                         <b style={{fontSize: '30px', marginRight: '43px'}}>Library</b>
