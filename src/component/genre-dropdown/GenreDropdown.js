@@ -8,7 +8,7 @@ class GenreDropdown extends React.Component{
     constructor(){
         super()
         this.state = {
-        listGenre: [],
+            listGenre: [],
         }
     }
 

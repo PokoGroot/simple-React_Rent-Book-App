@@ -11,7 +11,7 @@ class Menu extends React.Component {
             <React.Fragment>
                 <NavHead />
                 {/* <Container style={{margin:'10px',maxWidth:"none"}}> */}
-                    <CardList />
+                    {/* <CardList /> */}
                 {/* </Container> */}
             </React.Fragment>
         )

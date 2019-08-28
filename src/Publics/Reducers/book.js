@@ -19,12 +19,12 @@ const books = ( state = initialState, action) => {
             return{
                 ...state,
                 isRejected: true,
-                isFulfilled: false
+                isLoading: false
             }
         case 'GET_BOOKS_FULFILLED':
             return{
                 ...state,
-                isRejected: false,
+                isLoading: false,
                 isFulfilled: true,
                 booksList: action.payload.data
             }

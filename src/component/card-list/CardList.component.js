@@ -1,14 +1,14 @@
 import React from 'react'
-import Axios from 'axios'
+// import Axios from 'axios'
 import { connect } from 'react-redux'
 
 import { Card } from '../card/card.component'
 
 import './CardList.css'
 import { Row, Spinner } from 'react-bootstrap';
-import { getBook } from '../../Publics/Actions/books'
+import { getBook } from '../../Publics/Actions/book'
 
-export class CardList extends React.Component {
+class CardList extends React.Component {
     constructor(props){
         super(props)
         this.state = {
@@ -16,26 +16,19 @@ export class CardList extends React.Component {
         }
     }
 
-    componentDidMount() {
-        Axios.get('http://localhost:3030/book')
-            .then (book => this.setState({books: book.data.data}))
-            .catch (err => console.log ('error =', err));
+    componentDidMount = async () => {
+        await this.props.dispatch (getBook())
+        // console.log('c', this.props.books.booksList.data)
+        this.setState({
+            books: this.props.books.booksList.data
+        })
     }
-    // componentDidMount = async () => {
-    //     await this.props.dispatch (getBook())
-    //     this.setState({
-    //         books: this.props.books
-    //     })
-    // }
-    
-
 
     handleGetDetails = (id) =>{
         window.location.href = `http://localhost:3000/detail_book/${id}`
     }
 
     render() {
-        console.log(this)
         const {books} = this.state
         // console.log("book", books)
         return(
@@ -60,9 +53,10 @@ export class CardList extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
+const MapStateToProps = state => {
     return {
         books: state.books,
     }
 }
-export default connect (mapStateToProps) (CardList)
+
+export default connect (MapStateToProps) (CardList)
