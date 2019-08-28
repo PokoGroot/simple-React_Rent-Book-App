@@ -19,18 +19,9 @@ export class AddModal extends React.Component {
                 availability: ''
             }
     };
-
-        this.toggle = this.toggle.bind(this);
-        // this.handleChangeTitle = this.handleChangeTitle.bind(this);
-        // this.handleChangeDescription = this.handleChangeDescription.bind(this);
-        // this.handleChangeImage = this.handleChangeImage.bind(this);
-        // this.handleChangeDateReleased = this.handleChangeDateReleased.bind(this);
-        // this.handleChangeGenre = this.handleChangeGenre.bind(this);
-        // this.handleChangeAvailability = this.handleChangeAvailability.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    toggle() {
+    toggle = () => {
         this.setState({
         modal: !this.state.modal
         });
@@ -44,7 +35,7 @@ export class AddModal extends React.Component {
         })
     }
 
-    handleSubmit(event) {
+    handleSubmit = (event) => {
         Axios.post('http://localhost:3030/book/', this.state.formData)
             .then(res => {
                 this.setState({

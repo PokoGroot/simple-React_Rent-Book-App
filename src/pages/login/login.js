@@ -1,6 +1,7 @@
 import React from 'react';
-
 import { Form, FormGroup, Label, Input, Button, CustomInput } from 'reactstrap'
+import { Redirect } from 'react-router-dom'
+import Axios from 'axios'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './login.css';
@@ -24,7 +25,35 @@ class Login extends React.Component {
         })
     }
 
+    //not yet edit
+    handleSubmit(e){
+        Axios.post('http://localhost:3030/user/login', {
+            email: this.state.email, 
+            password: this.state.password
+        })
+            .then((res) => {
+                if(res.data.status == 401){
+                    alert("Your Email or Password Incorrect");
+                }else{
+                    this.loggingIn(res)
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+            e.preventDefault();
+    }
+    loggingIn(res){
+        console.log(res)
+        localStorage.setItem('token', res.data.dataUser.token)
+        window.location.reload()
+    }
+
     render(){
+        //not yet edit
+        if(localStorage.getItem('token')) return <Redirect to="/home"/>
+        else
+
         return (
             <div className="container-fluid">
                 <div className="row">

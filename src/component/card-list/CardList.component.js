@@ -1,32 +1,41 @@
 import React from 'react'
 import Axios from 'axios'
+import { connect } from 'react-redux';
 
 import { Card } from '../card/card.component'
 
 import './CardList.css'
 import { Row, Spinner } from 'react-bootstrap';
+import { getBooks } from '../../Publics/Actions/books';
 
 export class CardList extends React.Component {
     constructor(){
         super()
         this.state = {
-            books: []
+            books: [],
         }
     }
 
     componentDidMount() {
         Axios.get('http://localhost:3030/book')
-            .then (book => this.setState({books: book.data.result}))
-            // .then (res => console.log(res.data))
+            .then (book => this.setState({books: book.data.data}))
             .catch (err => console.log ('error =', err));
     }
+    // componentDidMount = async () => {
+    //     await this.props.dispatch(getBooks())
+    //     // console.log(this.props)
+    //     this.setState ({
+    //         books: this.props.books.booksList
+    //     })
+    // }
 
     handleGetDetails = (id) =>{
         window.location.href = `http://localhost:3000/detail_book/${id}`
     }
 
     render() {
-        const books = this.state.books
+        const {books} = this.state
+        console.log("book", books)
         return(
             <Row style={{justifyContent:'center'}}>
                 <div className="book-list">
@@ -44,8 +53,14 @@ export class CardList extends React.Component {
                     </div>
                 </div>
             </Row>
-
             
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        books: state.books
+    }
+}
+export default connect(mapStateToProps) (CardList)

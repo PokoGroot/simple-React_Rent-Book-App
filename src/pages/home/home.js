@@ -13,7 +13,7 @@ class Menu extends React.Component {
             <React.Fragment>
                 <NavHead />
                 <Container style={{margin:'10px',maxWidth:"none"}}>
-                    {/* <SlideView /> */}
+                    <SlideView />
                     <CardList />
                 </Container>
             </React.Fragment>

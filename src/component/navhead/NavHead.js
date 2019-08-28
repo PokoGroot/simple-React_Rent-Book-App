@@ -39,8 +39,6 @@ export class NavHead extends React.Component {
 
     handleSearch = (e) => {
         this.setState({search: e.target.value})
-        console.log(this.search)
-        console.log(e.target.value)
     }
 
     render() {

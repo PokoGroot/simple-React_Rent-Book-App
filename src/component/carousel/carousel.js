@@ -12,13 +12,10 @@ export class SlideView extends React.Component {
             books: []
         }
     }
-    // state= {
-    //     books:[]
-    // }
 
     componentDidMount() {
         Axios.get('http://localhost:3030/book')
-            .then (book => this.setState({books: book.data.result}))
+            .then (book => this.setState({books: book.data.data}))
             // .then (book => console.log(book.data.result))
             .catch (err => console.log ('error =', err));
     }

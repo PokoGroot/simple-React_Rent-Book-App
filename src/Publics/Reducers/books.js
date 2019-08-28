@@ -1,36 +1,36 @@
 /* eslint-disable default-case */
 const initialState = {
-    itemList: [],
+    booksList: [],
     isLoading: false,
     isRejected: false,
     isFulfilled: false
 }
 
-const item = ( state = initialState, action) => {
+const books = ( state = initialState, action) => {
     switch (action.type) {
-        case 'GET_ITEM_PENDING':
+        case 'GET_BOOKS_PENDING':
             return {
                 ...state,
                 isLoading: true,
                 isRejected: false,
                 isFulfilled: false
             }
-        case 'GET_ITEM_REJECTED':
+        case 'GET_BOOKS_REJECTED':
             return {
                 ...state,
                 isRejected: true,
                 isFulfilled: false
             }
-        case 'GET_ITEM_FULFILLED':
+        case 'GET_BOOKS_FULFILLED':
             return {
                 ...state,
                 isRejected: false,
                 isFulfilled: true,
-                itemList: action.payload.data.data
+                booksList: action.payload.data.data
             }
         default: 
             return state
     }
 }
 
-export default item
+export default books
