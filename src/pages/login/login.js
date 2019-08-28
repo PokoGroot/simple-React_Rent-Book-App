@@ -1,6 +1,6 @@
 import React from 'react';
-import { Form, FormGroup, Label, Input, Button, CustomInput } from 'reactstrap'
-import { Redirect } from 'react-router-dom'
+import { FormGroup, Label, Input, Button, CustomInput } from 'reactstrap'
+import { Redirect, Link } from 'react-router-dom'
 import Axios from 'axios'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,29 +10,29 @@ class Login extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            formData: {
+                email: '',
+                password: '',
+            },
             loggedIn: false,
-            email: '',
-            password: '',
         }
     }
 
     handleFormChange = (e) => {
-        const value = e.target.value
-        const name = e.target.name
+        const newFormData = {...this.state.formData}
+        newFormData[e.target.name] = e.target.value
 
         this.setState({
-            [name]: value
+            formData: newFormData
         })
     }
 
-    //not yet edit
-    handleSubmit(e){
-        Axios.post('http://localhost:3030/user/login', {
-            email: this.state.email, 
-            password: this.state.password
-        })
+    handleSubmit = (e) => {
+        const data = this.state.formData
+        Axios.post('http://localhost:3030/user/login', data)
             .then((res) => {
-                if(res.data.status == 401){
+                console.log('res', res)
+                if(res.status == 401){
                     alert("Your Email or Password Incorrect");
                 }else{
                     this.loggingIn(res)
@@ -44,13 +44,11 @@ class Login extends React.Component {
             e.preventDefault();
     }
     loggingIn(res){
-        console.log(res)
-        localStorage.setItem('token', res.data.dataUser.token)
+        localStorage.setItem('token', res.data.token)
         window.location.reload()
     }
 
     render(){
-        //not yet edit
         if(localStorage.getItem('token')) return <Redirect to="/home"/>
         else
 
@@ -72,7 +70,7 @@ class Login extends React.Component {
                             <h2>Login</h2>
                             <p>Welcome Back, Please Login <br/> to your account</p>
                         </div>
-                        <Form>
+                        {/* <Form > */}
                             <FormGroup>
                                 <Input type="email" name="email" id="exampleEmail" placeholder="Email" style={{width: '300px'}} onChange={this.handleFormChange} />
                             </FormGroup>
@@ -84,9 +82,11 @@ class Login extends React.Component {
                                     <CustomInput type="checkbox" id="exampleCustomCheckbox" label="Remember me" />
                                 </Label>
                             </FormGroup>
-                            <Button color="primary" className='login-button'>Login</Button>
-                            <Button outline color="secondary" className='register-button'>Register</Button>
-                        </Form>
+                            <Button color="primary" className='login-button' onClick={this.handleSubmit}>Login</Button>
+                            <Link to='register'>
+                                <Button outline color="secondary" className='register-button'>Register</Button>
+                            </Link>
+                        {/* </Form> */}
                         </div>
                     </div>
                     <div className="row">
