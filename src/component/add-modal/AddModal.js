@@ -36,7 +36,9 @@ export class AddModal extends React.Component {
     }
 
     handleSubmit = (event) => {
-        Axios.post('http://localhost:3030/book/', this.state.formData)
+        const token = localStorage.token
+        Axios.post('http://localhost:3030/book/', this.state.formData,
+            { headers: { Authorization: token}})
             .then(res => {
                 this.setState({
                 showModal:true,
@@ -54,7 +56,7 @@ export class AddModal extends React.Component {
             <div>
                 <Link onClick={this.toggle} className="sidelist">Add Book</Link>
                 <Modal isOpen={this.state.modal}>
-                    <form onSubmit={this.handleSubmit}>
+                    <form>
                         <ModalHeader>Add Book</ModalHeader>
                         <ModalBody>
                             <div className="row">
@@ -95,7 +97,7 @@ export class AddModal extends React.Component {
                             </div>
                         </ModalBody>
                         <ModalFooter>
-                            <input type="submit" value="Submit" color="primary" className="btn btn-primary" />
+                            <Button color='primary' className='btn btn-primary' onClick={this.handleSubmit}>Submit</Button>
                             <Button color="danger" onClick={this.toggle}>Cancel</Button>
                         </ModalFooter>
                     </form>

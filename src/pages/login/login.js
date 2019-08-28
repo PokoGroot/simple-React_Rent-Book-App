@@ -14,7 +14,7 @@ class Login extends React.Component {
                 email: '',
                 password: '',
             },
-            loggedIn: false,
+            // loggedIn: false,
         }
     }
 
@@ -31,8 +31,7 @@ class Login extends React.Component {
         const data = this.state.formData
         Axios.post('http://localhost:3030/user/login', data)
             .then((res) => {
-                console.log('res', res)
-                if(res.status == 401){
+                if(res.data.status === 401){
                     alert("Your Email or Password Incorrect");
                 }else{
                     this.loggingIn(res)

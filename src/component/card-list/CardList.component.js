@@ -1,16 +1,16 @@
 import React from 'react'
 import Axios from 'axios'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
 import { Card } from '../card/card.component'
 
 import './CardList.css'
 import { Row, Spinner } from 'react-bootstrap';
-import { getBooks } from '../../Publics/Actions/books';
+import { getBook } from '../../Publics/Actions/books'
 
 export class CardList extends React.Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
             books: [],
         }
@@ -22,20 +22,22 @@ export class CardList extends React.Component {
             .catch (err => console.log ('error =', err));
     }
     // componentDidMount = async () => {
-    //     await this.props.dispatch(getBooks())
-    //     // console.log(this.props)
-    //     this.setState ({
-    //         books: this.props.books.booksList
+    //     await this.props.dispatch (getBook())
+    //     this.setState({
+    //         books: this.props.books
     //     })
     // }
+    
+
 
     handleGetDetails = (id) =>{
         window.location.href = `http://localhost:3000/detail_book/${id}`
     }
 
     render() {
+        console.log(this)
         const {books} = this.state
-        console.log("book", books)
+        // console.log("book", books)
         return(
             <Row style={{justifyContent:'center'}}>
                 <div className="book-list">
@@ -60,7 +62,7 @@ export class CardList extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        books: state.books
+        books: state.books,
     }
 }
-export default connect(mapStateToProps) (CardList)
+export default connect (mapStateToProps) (CardList)

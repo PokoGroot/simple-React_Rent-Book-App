@@ -1,6 +1,8 @@
 import React from 'react'
-import Axios from 'axios'
-import {NavDropdown, Spinner} from 'react-bootstrap'
+// import Axios from 'axios'
+import { NavDropdown, Spinner } from 'react-bootstrap'
+import { getYear } from '../../Publics/Actions/year'
+import { connect } from 'react-redux'
 
 class TimeDropdown extends React.Component{
     constructor(){
@@ -10,13 +12,13 @@ class TimeDropdown extends React.Component{
         }
     }
 
-    componentDidMount = () => {
-        Axios.get ('http://localhost:3030/book/y/year')
-        .then (res => {
-            this.setState ({listYear: res.data});
+    componentDidMount = async() => {
+        await this.props.dispatch(getYear())
+        // console.log(this.props.years.yearsList)
+        this.setState({
+            listYear: this.props.years.yearsList
         })
-        .catch (err => console.log ('error =', err));
-    };
+    }
 
     render() {
         const listYear = this.state.listYear
@@ -32,4 +34,9 @@ class TimeDropdown extends React.Component{
         )
     }
 }
-export default TimeDropdown
+const MapStateToProps = state => {
+    return {
+        years: state.years
+    }
+}
+export default connect (MapStateToProps) (TimeDropdown)

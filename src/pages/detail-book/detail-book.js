@@ -71,7 +71,7 @@ class DetailBook extends React.Component {
                                     <h5>{bookDetail.date_released}</h5>
                                 </Col>
                                 <Col>
-                                    { (bookDetail.availability == 1) ? 
+                                    { (bookDetail.availability === 1) ? 
                                         <h4 style={{color:"#99D815"}}>AVAILABLE</h4>
                                     : <h4 style={{color:"red"}}>NOT AVAILABLE</h4>}
                                 </Col>

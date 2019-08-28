@@ -41,6 +41,11 @@ export class NavHead extends React.Component {
         this.setState({search: e.target.value})
     }
 
+    logOut = () => {
+        localStorage.removeItem('token')
+        window.location.reload()
+    }
+
     render() {
         const contentSidebar = (
             <div>
@@ -55,6 +60,7 @@ export class NavHead extends React.Component {
                     <Link className="sidelist" to="/explore">Explore</Link>
                     <Link className="sidelist">History</Link>
                     <AddModal />
+                    <h6><a href="javascript:void(0)" className='sidelist' onClick={this.logOut}>Log out</a></h6>
                 </div>
             </div>
         )

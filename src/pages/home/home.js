@@ -8,7 +8,20 @@ import {NavHead} from '../../component/navhead/NavHead'
 import '../home/home.css'
 
 class Menu extends React.Component {
+    
+    // constructor() {
+    //     super();
+    //     this.state = {
+    //         // userData: [],
+    //         // booksData: [],
+    //         // search: ''
+    //     };
+    // }
+
     render() {
+        let token = localStorage.getItem('token')
+        if(!token) window.location.href = 'http://localhost:3000/login'
+
         return (
             <React.Fragment>
                 <NavHead />
