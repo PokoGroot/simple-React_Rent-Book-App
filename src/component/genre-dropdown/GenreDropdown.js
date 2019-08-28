@@ -17,7 +17,7 @@ class GenreDropdown extends React.Component{
         this.setState ({
             listGenre: this.props.genres.genresList
         })
-    }
+    } 
 
     handleGenreSort = () => {}
     
