@@ -13,18 +13,22 @@ import './App.css';
 
 const App = () => {
   return (
+    <Provider store={store}>
     <Router>
-      <Provider store={store}>
+
         <Switch>
-          <Route exact path={'/'} component={Home} /> 
+          <Route exact path={'/'} render={({history}) => {
+            return <Home history={history} />
+          }} /> 
           <Route path={'/login'} component={Login} />
           <Route path={'/register'} component={Register} />
           <Route path={'/detail_book/:id'} component={DetailBook} />
           <Route path={'/explore'} component={Explore} />
           <Redirect to="/" />
         </Switch>
-      </Provider>
+      
     </Router>
+    </Provider>
   );
 }
 

@@ -1,9 +1,13 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux'
 
-import books from './books';
+import books from './books'
+import genres from './genre'
+import years from './year'
 
-const rootReducer = combineReducers ({
+const reducers = combineReducers ({
     books,
+    genres,
+    years
 });
 
-export default rootReducer;
+export default reducers;
