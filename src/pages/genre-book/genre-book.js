@@ -10,10 +10,11 @@ class GenreBook extends React.Component {
         super(props)
     }
     render() {
+        // console.log('urlgenre', this.props.match)
         return (
             <React.Fragment>
                 <NavHead />
-                <CardList />
+                <CardList match={this.props.match}/>
             </React.Fragment>
         )
     }

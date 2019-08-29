@@ -18,10 +18,14 @@ class GenreDropdown extends React.Component{
         this.setState ({
             listGenre: this.props.genres.genresList
         })
-    } 
+    }
+
+    handleGenre = (id) => {
+        window.location.href = `http://localhost:3000/genre/${id}`
+    }
 
     render() {
-        console.log('genre',this)
+        // console.log('genre',this)
         const listGenre = this.state.listGenre
         return(
             <NavDropdown title="All Categories">
@@ -29,7 +33,7 @@ class GenreDropdown extends React.Component{
                 listGenre.map((genre) => {
                 return (
                     <NavDropdown.Item 
-                        key={genre.genre_id} name='sortGenre' href={`/genre/${genre.genre_id}`} 
+                        key={genre.genre_id} name='sortGenre' onClick={() => this.handleGenre(genre.genre_id)}  
                         value={genre.genre_name}
                     >{genre.genre_name}</NavDropdown.Item>
                 )

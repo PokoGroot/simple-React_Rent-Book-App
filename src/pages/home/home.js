@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Container } from 'react-bootstrap';
-import { Router } from 'react-router-dom'
+// import { Router } from 'react-router-dom'
 
 import CardList from '../../component/card-list/CardList.component'
 import {SlideView} from '../../component/carousel/carousel'

@@ -18,7 +18,9 @@ const App = () => {
     <Router>
 
         <Switch>
-          <Route exact path={'/'} render={({history}) => {
+          <Route path={'/'} 
+            exact 
+            render={({history}) => {
             return <Home history={history} />
           }} /> 
           <Route path={'/login'} component={Login} />
@@ -26,10 +28,12 @@ const App = () => {
           <Route path={'/detail_book/:id'} component={DetailBook} />
           <Route path={'/explore'} component={Explore} />
           <Route path={'/genre/:id'} 
-            render={(props)=>{
-              return <GenreBook {...props} />
-            }}
+            component={GenreBook}
+            // render={(props)=>{
+            //   return <GenreBook {...props} />
+            // }}
           />
+          <Route path={'/year/:id'} component={GenreBook} />
           <Redirect to="/" />
         </Switch>
       
