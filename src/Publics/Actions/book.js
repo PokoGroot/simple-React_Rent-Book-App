@@ -31,3 +31,20 @@ export const addBook = (data) => {
                 { headers: { Authorization: token}})
     }
 }
+
+export const editBook = (data, id) => {
+    return {
+        type: 'EDIT_BOOK',
+        payload: Axios.patch(`http://localhost:3030/book/${id}`,
+                        data,
+                        { headers: {Authorization: token}})
+    }
+}
+
+export const deleteBook = (id) => {
+    return {
+        type: 'DELETE_BOOK',
+        payload: Axios.delete(`http://localhost:3030/book/${id}`,
+                        { headers: {Authorization: token}})
+    }
+}

@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap';
 // import { Router } from 'react-router-dom'
 
 import CardList from '../../component/card-list/CardList.component'
-import {SlideView} from '../../component/carousel/carousel'
+import SlideView from '../../component/carousel/carousel'
 import {NavHead} from '../../component/navhead/NavHead'
 
 import '../home/home.css'
@@ -29,7 +29,7 @@ class Menu extends React.Component {
                             )
                         }}
                     /> */}
-                    <SlideView />
+                    <SlideView key={this.props.books} />
                     <CardList />
                 </Container>
             </React.Fragment>

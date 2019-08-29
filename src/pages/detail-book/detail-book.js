@@ -29,7 +29,7 @@ class DetailBook extends React.Component {
         let id = this.props.match.params.id
         await this.props.dispatch(getBookById(id))
         this.setState({
-            bookDetail: this.props.books.bookDetail[0]
+            bookDetail: this.props.books.bookDetail
         })
     }
 
@@ -44,12 +44,12 @@ class DetailBook extends React.Component {
     render(){
         // console.log('detail', this)
         const { bookDetail } = this.state
-        console.log('boo',bookDetail)
+        // console.log('boo',bookDetail)
 
         return(
             <React.Fragment>
                 <Container style={{margin:"0px", maxWidth:"100%", fontFamily:"Airbnb Cereal App Medium"}}>
-                    <Row style={{padding:"0px"}} className="image-header">
+                    <Row style={{padding:"0px", backgroundImage: `url(${bookDetail.image})`}} className="bgHeader">
                         <Col md={10} style={{padding: '16px 0px 0px 19px', margin:'0px'}}>
                             <Link to='../home'>
                                 <Button variant="light" style={{borderRadius:"5vh"}}>
@@ -89,13 +89,12 @@ class DetailBook extends React.Component {
                     </Row>
                 </Container>
                 <ModalEditBook
-                    id_book={bookDetail.id_book}
+                    book_id={bookDetail.book_id}
                     title={bookDetail.title}
                     description={bookDetail.description}
                     image={bookDetail.image}
                     date_released={bookDetail.date_released}
-                    id_genre={bookDetail.id_genre}
-                    id_status={bookDetail.id_status}
+                    genre_id={bookDetail.genre_id}
                     open={this.state.openModalEdit}
                     hide={() => this.setState({openModalEdit: false})}
                 />

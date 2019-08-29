@@ -48,7 +48,7 @@ const books = ( state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 isFulfilled: true,
-                bookDetail: action.payload.data.data
+                bookDetail: action.payload.data.data[0]
             }
         case 'ADD_BOOK_PENDING':
             return{
@@ -66,6 +66,46 @@ const books = ( state = initialState, action) => {
             }
         case 'ADD_BOOK_FULFILLED':
             // state.booksList.unshift(action.payload.data.data)
+            return{
+                ...state,
+                isLoading:false,
+                isFulfilled:true
+            }
+        case 'EDIT_BOOK_PENDING':
+            return{
+                ...state,
+                isLoading:true,
+                isRejected:false,
+                isFulfilled:false,
+            }
+        case 'EDIT_BOOK_REJECTED':
+            return{
+                ...state,
+                isLoading:false,
+                isRejected:true,
+                errMessage:action.payload.response.data.message,
+            }
+        case 'EDIT_BOOK_FULFILLED':
+            return{
+                ...state,
+                isLoading:false,
+                isFulfilled:true
+            }
+        case 'DELETE_BOOK_PENDING':
+            return{
+                ...state,
+                isLoading:true,
+                isRejected:false,
+                isFulfilled:false,
+            }
+        case 'DELETE_BOOK_REJECTED':
+            return{
+                ...state,
+                isLoading:false,
+                isRejected:true,
+                errMessage:action.payload.response.data.message,
+            }
+        case 'DELETE_BOOK_FULFILLED':
             return{
                 ...state,
                 isLoading:false,

@@ -1,41 +1,54 @@
 import React from 'react'
-import Axios from 'axios'
-
+import { connect } from 'react-redux'
 import { Carousel } from 'react-responsive-carousel';
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-export class SlideView extends React.Component {
-    constructor(){
-        super()
+class SlideView extends React.Component {
+    constructor(props){
+        super(props)
         this.state = {
-            books: []
+            dataaa: []
         }
     }
 
-    componentDidMount() {
-        Axios.get('http://localhost:3030/book')
-            .then (book => this.setState({books: book.data.data}))
-            // .then (book => console.log(book.data.result))
-            .catch (err => console.log ('error =', err));
+    // componentDidMount() {
+    //     Axios.get('http://localhost:3030/book')
+    //         .then (book => this.setState({books: book.data.data}))
+    //         .catch (err => console.log ('error =', err));
+    // }
+
+    componentDidMount = () => {
+        this.setState({
+            dataaa : this.props.books.booksList.data
+        })
     }
 
     render() {
-        const books = this.state.books
+        console.log('dataa',this.props)
+        const books = this.state.dataaa
         return (
             <Carousel
                 showStatus={false}
                 showThumbs={false}
                 autoPlay={true}
             >
-                {books.map((book) => {
+                {books ? books.map((book) => {
                     return (<div style={{width: '1340px', height: '300px'}} key={book.book_id}>
                                 <img src={book.image} alt="Error" style={{maxWidth: '1340px'}}/>
                                 <p className="legend">{book.title}</p>
                             </div>)
-                    })
+                    }): <p>asasasasa</p>
                 }
             </Carousel>
         );
     }
 };
+
+const MapStateToProps = state => {
+    return {
+        books: state.books,
+    }
+}
+
+export default connect (MapStateToProps) (SlideView)
