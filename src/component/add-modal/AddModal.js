@@ -1,11 +1,11 @@
-
-
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from 'react-router-dom'
-import Axios from 'axios'
+import { addBook } from '../../Publics/Actions/book';
+import { connect } from 'react-redux'
+// import Axios from 'axios'
 
-export class AddModal extends React.Component {
+class AddModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -35,19 +35,9 @@ export class AddModal extends React.Component {
         })
     }
 
-    handleSubmit = (event) => {
-        const token = localStorage.token
-        Axios.post('http://localhost:3030/book/', this.state.formData,
-            { headers: { Authorization: token}})
-            .then(res => {
-                this.setState({
-                showModal:true,
-                modalTitle:"Success",
-                modalMessage:res.data.message,
-                })
-            })
-            .catch(err => console.log(err))
-            event.preventDefault();
+    handleSubmit = async(event) => {
+        await this.props.dispatch(addBook(this.state.formData))
+            // event.preventDefault();
             window.location.reload()
     }
 
@@ -107,3 +97,11 @@ export class AddModal extends React.Component {
         );
     }
 }
+
+const MapStateToProps = state => {
+    return {
+        books: state.books,
+    }
+}
+
+export default connect (MapStateToProps) (AddModal)

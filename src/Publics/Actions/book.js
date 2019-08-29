@@ -1,4 +1,5 @@
 import Axios from 'axios'
+const token = localStorage.token
 
 export const getBook = (title = null, sort = null, availability = null, genre = null, year = null, page = null, order = null) => {
     const searchTitle = title ? `search=${title}` : ''
@@ -19,5 +20,14 @@ export const getBookById = (id) => {
     return {
         type: 'GET_BOOKS_BY_ID',
         payload: Axios.get(`http://localhost:3030/book/${id}`)
+    }
+}
+
+export const addBook = (data) => {
+    return {
+        type: 'ADD_BOOK',
+        payload: Axios.post('http://localhost:3030/book/',
+                            data,
+                            { headers: { Authorization: token}})
     }
 }

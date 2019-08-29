@@ -1,6 +1,7 @@
 /* eslint-disable default-case */
 const initialState = {
     booksList: [],
+    errMessage: '',
     isLoading: false,
     isRejected: false,
     isFulfilled: false
@@ -46,6 +47,27 @@ const books = ( state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 isFulfilled: true,
+            }
+        case 'ADD_BOOK_PENDING':
+            return{
+                ...state,
+                isLoading:true,
+                isRejected:false,
+                isFulfilled:false,
+            }
+        case 'ADD_BOOK_REJECTED':
+            return{
+                ...state,
+                isLoading:false,
+                isRejected:true,
+                errMessage:action.payload.response.data.message,
+            }
+        case 'ADD_BOOK_FULFILLED':
+            // state.booksList.unshift(action.payload.data.data)
+            return{
+                ...state,
+                isLoading:false,
+                isFulfilled:true
             }
         default: 
             return state

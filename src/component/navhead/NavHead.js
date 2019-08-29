@@ -2,7 +2,7 @@ import React from 'react'
 import Sidebar from 'react-sidebar';
 import { Link } from 'react-router-dom'
 import {  Navbar, Nav, Form, InputGroup, FormControl } from 'react-bootstrap'
-import { AddModal } from '../add-modal/AddModal'
+import AddModal from '../add-modal/AddModal'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars ,faSearch } from '@fortawesome/free-solid-svg-icons'
