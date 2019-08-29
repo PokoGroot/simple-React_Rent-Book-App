@@ -7,8 +7,9 @@ import Card from 'react-bootstrap/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom'
-import Axios from "axios";
+import { connect } from 'react-redux'
 
+import { getBookById } from '../../Publics/Actions/book'
 import './detail-book.css';
 import ModalEditBook from '../../component/edit-modal/EditModal'
 import ModalDelete from '../../component/delete-modal/DeleteModal'
@@ -24,15 +25,12 @@ class DetailBook extends React.Component {
         }
     }
 
-    componentDidMount() {
+    componentDidMount = async() => {
         let id = this.props.match.params.id
-        Axios.get(`http://localhost:3030/book/${id}`)
-        .then((result) =>{
-            this.setState({
-                bookDetail: result.data.data[0]
-            })
+        await this.props.dispatch(getBookById(id))
+        this.setState({
+            bookDetail: this.props.books.bookDetail[0]
         })
-        .catch(err => console.log(err))
     }
 
     openModalEdit = (open) => {
@@ -46,6 +44,7 @@ class DetailBook extends React.Component {
     render(){
         // console.log('detail', this)
         const { bookDetail } = this.state
+        console.log('boo',bookDetail)
 
         return(
             <React.Fragment>
@@ -111,4 +110,10 @@ class DetailBook extends React.Component {
     }
 }
 
-export default DetailBook
+const MapStateToProps = state => {
+    return {
+        books: state.books,
+    }
+}
+
+export default connect(MapStateToProps) (DetailBook)

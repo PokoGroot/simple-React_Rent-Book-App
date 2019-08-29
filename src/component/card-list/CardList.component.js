@@ -20,8 +20,7 @@ class CardList extends React.Component {
         const genre = this.props.match? this.props.match.params.id : null
         // console.log(this.props.match.params.id)
         //const search =
-        await this.props.dispatch (getBook( null, null, null, genre, null, null ))
-        // console.log('c', this.props.books.booksList.data)
+        await this.props.dispatch (getBook( undefined, undefined, undefined, genre, undefined, undefined ))
         this.setState({
             books: this.props.books.booksList.data
         })
