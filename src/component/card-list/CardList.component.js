@@ -17,7 +17,8 @@ class CardList extends React.Component {
     }
 
     componentDidMount = async () => {
-        await this.props.dispatch (getBook())
+        // const genre = this.
+        await this.props.dispatch (getBook( null, null, null, null, null, null ))
         // console.log('c', this.props.books.booksList.data)
         this.setState({
             books: this.props.books.booksList.data
@@ -29,6 +30,7 @@ class CardList extends React.Component {
     }
 
     render() {
+        // console.log('thiss',this)
         const {books} = this.state
         // console.log("book", books)
         return(

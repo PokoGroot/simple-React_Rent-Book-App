@@ -3,19 +3,20 @@ import React from 'react';
 import CardList from '../../component/card-list/CardList.component'
 import {NavHead} from '../../component/navhead/NavHead'
 
-import './explore.css'
+import './genre-book.css'
 
-class Menu extends React.Component {
+class GenreBook extends React.Component {
+    constructor(props) {
+        super(props)
+    }
     render() {
         return (
             <React.Fragment>
                 <NavHead />
-                {/* <Container style={{margin:'10px',maxWidth:"none"}}> */}
-                    <CardList />
-                {/* </Container> */}
+                <CardList />
             </React.Fragment>
         )
     }
 }
 
-export default Menu;
+export default GenreBook;

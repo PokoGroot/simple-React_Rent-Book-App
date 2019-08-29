@@ -3,10 +3,11 @@ import React from 'react'
 import {NavDropdown, Spinner} from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { getGenre } from '../../Publics/Actions/genre'
+// import { getBook } from '../../Publics/Actions/book'
 
 class GenreDropdown extends React.Component{
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
             listGenre: [],
         }
@@ -19,16 +20,18 @@ class GenreDropdown extends React.Component{
         })
     } 
 
-    handleGenreSort = () => {}
-    
     render() {
+        console.log('genre',this)
         const listGenre = this.state.listGenre
         return(
             <NavDropdown title="All Categories">
                 {listGenre.length > 0 ? 
                 listGenre.map((genre) => {
                 return (
-                    <NavDropdown.Item key={genre.genre_id} href={`/genre/${genre.genre_id}`} onClick={this.handleGenreSort}>{genre.genre_name}</NavDropdown.Item>
+                    <NavDropdown.Item 
+                        key={genre.genre_id} name='sortGenre' href={`/genre/${genre.genre_id}`} 
+                        value={genre.genre_name}
+                    >{genre.genre_name}</NavDropdown.Item>
                 )
                 }): <NavDropdown.Item href="#/"><Spinner animation="grow" size="sm"/> Loading...</NavDropdown.Item>}
             </NavDropdown>

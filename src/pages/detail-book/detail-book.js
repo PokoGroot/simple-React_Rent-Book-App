@@ -44,6 +44,7 @@ class DetailBook extends React.Component {
     }
 
     render(){
+        // console.log('detail', this)
         const { bookDetail } = this.state
 
         return(

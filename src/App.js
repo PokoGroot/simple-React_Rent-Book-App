@@ -6,6 +6,7 @@ import Home from './pages/home/home'
 import Login from './pages/login/login'
 import Register from './pages/register/register'
 import DetailBook from './pages/detail-book/detail-book'
+import GenreBook from './pages/genre-book/genre-book'
 import Explore from './pages/explore/explore'
 import store from './Publics/Store'
 
@@ -24,6 +25,11 @@ const App = () => {
           <Route path={'/register'} component={Register} />
           <Route path={'/detail_book/:id'} component={DetailBook} />
           <Route path={'/explore'} component={Explore} />
+          <Route path={'/genre/:id'} 
+            render={(props)=>{
+              return <GenreBook {...props} />
+            }}
+          />
           <Redirect to="/" />
         </Switch>
       

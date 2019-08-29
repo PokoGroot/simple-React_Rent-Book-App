@@ -28,6 +28,25 @@ const books = ( state = initialState, action) => {
                 isFulfilled: true,
                 booksList: action.payload.data
             }
+        case 'GET_BOOK_BY_ID_PENDING':
+            return {
+                ...state,
+                isLoading: true,
+                isRejected: false,
+                isFulfilled: false
+            }
+        case 'GET_BOOK_BY_ID_REJECTED':
+            return{
+                ...state,
+                isRejected: true,
+                isLoading: false
+            }
+        case 'GET_BOOK_BY_ID_FULFILLED':
+            return{
+                ...state,
+                isLoading: false,
+                isFulfilled: true,
+            }
         default: 
             return state
     }

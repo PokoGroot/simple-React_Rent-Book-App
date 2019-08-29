@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Container } from 'react-bootstrap';
+import { Router } from 'react-router-dom'
 
 import CardList from '../../component/card-list/CardList.component'
 import {SlideView} from '../../component/carousel/carousel'
@@ -16,6 +17,18 @@ class Menu extends React.Component {
             <React.Fragment>
                 <NavHead />
                 <Container style={{margin:'10px',maxWidth:"none"}}>
+                    {/* <Router 
+                        path='/'
+                        exact={true}
+                        render={({history}) => {
+                            return (
+                                <Fragment>
+                                    <SlideView />
+                                    <CardList history={history}/>
+                                </Fragment>
+                            )
+                        }}
+                    /> */}
                     <SlideView />
                     <CardList />
                 </Container>

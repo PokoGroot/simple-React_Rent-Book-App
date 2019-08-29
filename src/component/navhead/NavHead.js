@@ -92,7 +92,9 @@ export class NavHead extends React.Component {
                             </InputGroup.Prepend>
                             <FormControl type="text" placeholder="Search book" className="mr-sm-2 btn-search"  style={{width:'350px'}} onChange={this.handleSearch} />
                         </Form>
-                        <img src={logo} style={{width: '50px'}} alt="Not Found"/>
+                        <Link to='/'>
+                            <img src={logo} style={{width: '50px'}} alt="Not Found"/>
+                        </Link>
                         <b style={{fontSize: '30px', marginRight: '43px'}}>Library</b>
                     </Navbar.Collapse>
                 </Navbar>
