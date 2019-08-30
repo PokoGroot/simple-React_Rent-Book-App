@@ -25,7 +25,7 @@ class Menu extends React.Component {
                             return(
                                 <React.Fragment>
                                     <SlideView key={this.props.books}/>
-                                    <CardList search={params.get('search')} history={history} />
+                                    <CardList search={params.get('search')} history={history} key={window.location.href}/>
                                 </React.Fragment>
                             )
                         }}
@@ -34,7 +34,8 @@ class Menu extends React.Component {
                         path='/home/explore'
                         exact={true}
                         render={({history}) => {
-                            return <CardList />
+                            let params = new URLSearchParams(window.location.search)
+                            return <CardList search={params.get('search')} history={history} key={window.location.href}/>
                         }}
                     />
                     <Route
