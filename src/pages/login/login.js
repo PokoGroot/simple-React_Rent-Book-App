@@ -1,7 +1,9 @@
 import React from 'react';
 import { FormGroup, Label, Input, Button, CustomInput } from 'reactstrap'
 import { Redirect, Link } from 'react-router-dom'
-import Axios from 'axios'
+import { connect } from 'react-redux'
+
+import { login } from '../../Publics/Actions/user'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './login.css';
@@ -14,7 +16,7 @@ class Login extends React.Component {
                 email: '',
                 password: '',
             },
-            // loggedIn: false,
+            loggedIn: false,
         }
     }
 
@@ -27,23 +29,30 @@ class Login extends React.Component {
         })
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async(e) => {
+        e.preventDefault();
         const data = this.state.formData
-        Axios.post('http://localhost:3030/user/login', data)
-            .then((res) => {
-                if(res.data.status === 401){
-                    alert("Your Email or Password Incorrect");
-                }else{
-                    this.loggingIn(res)
-                }
+        await this.props.dispatch(login(data))
+            .then(res =>{
+                // console.log(res)
+                window.localStorage.setItem("token", res.action.payload.data.token)
+                this.setState({
+                    loggedIn: true
+                })
             })
-            .catch(function (error) {
-                console.log(error);
-            });
-            e.preventDefault();
+            // .then((res) => {
+            //     if(res.data.status === 401){
+            //         alert("Your Email or Password Incorrect");
+            //     }else{
+            //         this.loggingIn()
+            //     }
+            // })
+            // .catch(function (error) {
+            //     console.log(error);
+            // });
     }
-    loggingIn(res){
-        localStorage.setItem('token', res.data.token)
+    loggingIn(){
+        // localStorage.setItem('token', this.props.users.token)
         window.location.reload()
     }
 
@@ -100,4 +109,9 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+const mapStateToProps = state => {
+    return{
+            user: state.user
+    }
+}
+export default connect (mapStateToProps) (Login);

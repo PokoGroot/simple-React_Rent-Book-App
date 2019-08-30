@@ -33,11 +33,11 @@ class Menu extends React.Component {
                         path='/home/explore'
                         exact={true}
                         render={({history}) => {
-                            return <CardList key={window.location.href} />
+                            return <CardList />
                         }}
                     />
                     <Route
-                        path='/home/genre/:genre'
+                        path='/home/genre/:id'
                         exact={true}
                         render={({url}) => {
                             return <CardList match={this.props.match}/>

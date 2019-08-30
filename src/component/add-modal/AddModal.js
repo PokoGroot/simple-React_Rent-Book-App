@@ -16,7 +16,6 @@ class AddModal extends React.Component {
                 description: '',
                 image: '',
                 date_released: '',
-                genre: '',
                 availability: ''
             },
             genreList: []
@@ -41,6 +40,7 @@ class AddModal extends React.Component {
         this.setState({
             formData: newFormData
         })
+        
     }
 
     handleSubmit = async(event) => {
@@ -50,8 +50,8 @@ class AddModal extends React.Component {
     }
 
     render() {
+        console.log('form',this.state.formData)
         const {genreList} = this.state
-        console.log('genreadd', this)
         return (
             <div>
                 <Link onClick={this.toggle} className="sidelist">Add Book</Link>
@@ -86,22 +86,22 @@ class AddModal extends React.Component {
                             <div className="row">
                                 <div className="form-group col-md-12">
                                 <label>Genre:</label>
-                                    <FormGroup as="select" name="genre_id" onChange={this.handleChange}  >
-                                    
-                                        {/* {genreList.length !== 0 ? genreList.map((genre) => {
-                                            const selected = this.state.genre_id === genre.genre_id ? 'selected':''
-                                            return <option {...selected} value={genre.genre_id} key={genre.genre_id}> {genre.genre_name} </option>
+                                    <Input type="select" name="genre_id" onChange={this.handleForm}>
+                                        {genreList.length !== 0 ? genreList.map((genre) => {
+                                            return <option value={genre.genre_id} key={genre.genre_id}> {genre.genre_name} </option>
                                             })
                                             :<option>Loading...</option>
-                                        } */}
-                                        <Input type="select" name="select" id="exampleSelect" />
-                                    </FormGroup>
+                                        }
+                                    </Input>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="form-group col-md-12">
                                     <label>Availability:</label>
-                                    <input name="availability" type="text" value={this.country} onChange={this.handleForm} className="form-control" />
+                                    <Input type="select" name="availability" onChange={this.handleForm}>
+                                        <option value={1} key={1}> Available</option>
+                                        <option value={2} key={2}> Not Available</option>
+                                    </Input>
                                 </div>
                             </div>
                         </ModalBody>

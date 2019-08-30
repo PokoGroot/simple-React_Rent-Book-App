@@ -27,7 +27,6 @@ const App = () => {
             }}
           />
           <Route path={'/home'} 
-            exact 
             render={({history}) => {
             return (<Home history={history} />)
           }} /> 
@@ -40,7 +39,7 @@ const App = () => {
           <Route path={'/detail_book/:id'}
             component={DetailBook} 
           />
-          {/* <Redirect to="/" /> */}
+          <Redirect to="/" />
         </Switch>
       
     </Router>

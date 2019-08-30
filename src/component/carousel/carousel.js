@@ -21,7 +21,7 @@ class SlideView extends React.Component {
     }
 
     render() {
-        console.log('dataa',this.props)
+        // console.log('dataa',this.props)
         const books = this.state.dataBook
         return (
             <Carousel

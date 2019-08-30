@@ -10,6 +10,7 @@ import { faBars ,faSearch } from '@fortawesome/free-solid-svg-icons'
 import logo from '../../source/logo.png'
 import user from '../../source/user.png'
 
+import { getProfile } from '../../Publics/Actions/user'
 import { getBook } from '../../Publics/Actions/book'
 import GenreDropdown from '../genre-dropdown/GenreDropdown'
 import TimeDropDown from '../time-dropdown/TimeDropdown'
@@ -21,12 +22,18 @@ class NavHead extends React.Component {
         super(props);
         this.state = {
             sidebarOpen: false,
-            search: ''
+            search: '',
+            level: ''
         };
     }
 
-    componentDidMount = () => {
+    componentDidMount = async() => {
         this.keywordSearch()
+        await this.props.dispatch(getProfile())
+        this.setState({
+            level: this.props.users.userProfile.level
+        })
+        console.log('props',this.props)
     }
 
     keywordSearch = async() => {
@@ -51,6 +58,8 @@ class NavHead extends React.Component {
     }
 
     render() {
+
+
         const styleSideBar = {
             sidebar: { 
                 background: "white",
@@ -70,7 +79,8 @@ class NavHead extends React.Component {
                 <div style={{marginTop:"8vh", marginLeft:"4vh"}}>
                     <Link className="sidelist" to="/home/explore">Explore</Link>
                     <Link className="sidelist">History</Link>
-                    <AddModal />
+                    {this.state.level == 'admin' ? 
+                    <AddModal />:''}
                     <h6><a href="javascript:void(0)" className='sidelist' onClick={this.logOut}>Log out</a></h6>
                 </div>
             </div>
@@ -117,6 +127,7 @@ class NavHead extends React.Component {
 const MapStateToProps = state => {
     return {
         books: state.books,
+        users: state.users
     }
 }
 

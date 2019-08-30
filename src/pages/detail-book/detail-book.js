@@ -9,6 +9,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
+import { getProfile } from '../../Publics/Actions/user'
 import { getBookById, deleteBook } from '../../Publics/Actions/book'
 import './detail-book.css';
 import ModalEditBook from '../../component/edit-modal/EditModal'
@@ -21,15 +22,18 @@ class DetailBook extends React.Component {
             book_id : this.props.match.params.id,
             openModalEdit : false,
             openModalDelete : false,
-            bookDetail: []
+            bookDetail: [],
+            level: ''
         }
     }
 
     componentDidMount = async() => {
         let id = this.props.match.params.id
         await this.props.dispatch(getBookById(id))
+        await this.props.dispatch(getProfile())
         this.setState({
-            bookDetail: this.props.books.bookDetail
+            bookDetail: this.props.books.bookDetail,
+            level: this.props.users.userProfile.level
         })
     }
 
@@ -43,8 +47,12 @@ class DetailBook extends React.Component {
         await this.props.dispatch(deleteBook(id))
     }
 
+    // let gen = bookDetail.genre_id
+    // if(gen == 2){return 'Non-Fiction'} else return {'sasa'}
+
     render(){
         const { bookDetail } = this.state
+        const datee = new Date(bookDetail.date_released)
 
         return(
             <React.Fragment>
@@ -58,17 +66,20 @@ class DetailBook extends React.Component {
                             </Link>
                         </Col>
                         <Col md={2} className="float-right text-center" style={{fontSize:"20px", color:"#FFF"}}>
-                            <span><a href="javascript:void(0)" style={{color: '#fff', textDecoration: 'none'}} onClick={() => this.openModalEdit(true)}>Edit</a></span>&nbsp;&nbsp; 
-                            <span><a href="javascript:void(0)" style={{color: '#fff', textDecoration: 'none'}} onClick={() => this.openModalDelete(true)}>Delete</a></span>
+                            {this.state.level == 'admin' ?
+                            <div>
+                                <span><a href="javascript:void(0)" style={{color: '#fff', textDecoration: 'none'}} onClick={() => this.openModalEdit(true)}>Edit</a></span>&nbsp;&nbsp; 
+                                <span><a href="javascript:void(0)" style={{color: '#fff', textDecoration: 'none'}} onClick={() => this.openModalDelete(true)}>Delete</a></span>
+                            </div>:''}
                         </Col>
                     </Row>
                     <Row style={{padding:"3vh", paddingLeft:"40px"}}>
                         <Col md={8}>
-                            <Button variant="warning" className="btn-genre"><b>{bookDetail.genre_id}</b></Button><br/>
+                            <Button variant="warning" className="btn-genre"><b>{ bookDetail.genre_id }</b></Button><br/>
                             <Row>
                                 <Col md={10}>
                                     <h1>{bookDetail.title}</h1>
-                                    <h5>{bookDetail.date_released}</h5>
+                                    <h5>{datee.toLocaleDateString().replace(/\//g,'-')}</h5>
                                 </Col>
                                 <Col>
                                     { (bookDetail.availability === 1) ? 
@@ -84,7 +95,10 @@ class DetailBook extends React.Component {
                         <Card style={{ width: '10rem',marginLeft:"30vh"}}>
                             <Card.Img variant="top" src={bookDetail.image} className="book-cover"/>
                         </Card>
-                            <Button variant="warning" className="float-right btn-borrow"><b>Borrow</b></Button><br/>
+                            {this.state.level == 'admin' ? 
+                            <div>
+                                <Button variant="warning" className="float-right btn-borrow"><b>Borrow</b></Button><br/>
+                            </div>:''}
                         </Col>
                     </Row>
                 </Container>
@@ -110,6 +124,7 @@ class DetailBook extends React.Component {
 const MapStateToProps = state => {
     return {
         books: state.books,
+        users: state.users
     }
 }
 
