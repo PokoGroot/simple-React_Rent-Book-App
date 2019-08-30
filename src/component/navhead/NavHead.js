@@ -2,32 +2,36 @@ import React from 'react'
 import Sidebar from 'react-sidebar';
 import { Link } from 'react-router-dom'
 import {  Navbar, Nav, Form, InputGroup, FormControl } from 'react-bootstrap'
-import AddModal from '../add-modal/AddModal'
+import { connect } from 'react-redux'
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars ,faSearch } from '@fortawesome/free-solid-svg-icons'
-
 import logo from '../../source/logo.png'
 import user from '../../source/user.png'
+
+import { getBook } from '../../Publics/Actions/book'
 import GenreDropdown from '../genre-dropdown/GenreDropdown'
 import TimeDropDown from '../time-dropdown/TimeDropdown'
+import AddModal from '../add-modal/AddModal'
 import './Navhead.css'
 
-const styleSideBar = {
-    sidebar: { 
-        background: "white",
-        width: '45vh',
-        position: 'fixed'
-    }
-}
-
-export class NavHead extends React.Component {
+class NavHead extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             sidebarOpen: false,
             search: ''
         };
+    }
+
+    componentDidMount = () => {
+        this.keywordSearch()
+    }
+
+    keywordSearch = async() => {
+        const search = this.state.search
+        await this.props.dispatch (getBook( search, undefined, undefined, undefined, undefined, undefined ))
     }
 
     onSetSidebarOpen = (open) => {
@@ -47,6 +51,13 @@ export class NavHead extends React.Component {
     }
 
     render() {
+        const styleSideBar = {
+            sidebar: { 
+                background: "white",
+                width: '45vh',
+                position: 'fixed'
+            }
+        }
         const contentSidebar = (
             <div>
                 <span className="float-right" style={{fontSize: "3vh", marginRight:"2vh"}}>
@@ -57,7 +68,7 @@ export class NavHead extends React.Component {
                 <center><h5>Fadil Himawan A</h5></center>
 
                 <div style={{marginTop:"8vh", marginLeft:"4vh"}}>
-                    <Link className="sidelist" to="/explore">Explore</Link>
+                    <Link className="sidelist" to="/home/explore">Explore</Link>
                     <Link className="sidelist">History</Link>
                     <AddModal />
                     <h6><a href="javascript:void(0)" className='sidelist' onClick={this.logOut}>Log out</a></h6>
@@ -102,3 +113,11 @@ export class NavHead extends React.Component {
         )
     }
 }
+
+const MapStateToProps = state => {
+    return {
+        books: state.books,
+    }
+}
+
+export default connect (MapStateToProps) (NavHead)

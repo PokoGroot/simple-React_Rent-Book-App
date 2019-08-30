@@ -11,11 +11,11 @@ class ModalEditBook extends React.Component {
         console.log('props', props)
         this.state = {
             formData:{
-                title: '',
-                image: "",
-                date_released: '',
-                genre_id: '',
-                description: '',
+                // title: '',
+                // image: "",
+                // date_released: '',
+                // genre_id: '',
+                // description: '',
             },
             genreList: [],
         }
@@ -32,11 +32,12 @@ class ModalEditBook extends React.Component {
     }
 
     handleSubmit = (event) => {
-        this.props.dispatch (editBook(this.state.formData, this.props.book_id))
+        this.props.dispatch (editBook(this.state.formData, this.props.bookDetailPro.book_id))
         window.location.reload()
         event.preventDefault();
     }
 
+    //edit book form must show current book detail
     componentDidMount = async() => {
         await this.props.dispatch (getGenre())
         this.setState ({
@@ -45,14 +46,13 @@ class ModalEditBook extends React.Component {
                 title: this.props.bookDetailPro.title,
                 image: this.props.bookDetailPro.image,
             }
-        },()=>{console.log('call', this.state.formData)})
+        })
     }
 
 
     render(){
-        console.log('propsbook', this.props)
+        // console.log('propsbook', this.props)
         const {genreList, formData} = this.state
-        console.log('form', formData)
         return(
             <Modal size="lg" show={this.props.open} onHide={this.props.hide}>
                 <Modal.Header className="modal-header" closeButton style={{borderBottom:"none"}}>

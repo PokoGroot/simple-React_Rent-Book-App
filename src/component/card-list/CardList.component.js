@@ -18,7 +18,6 @@ class CardList extends React.Component {
 
     componentDidMount = async () => {
         const genre = this.props.match? this.props.match.params.id : null
-        // console.log(this.props.match.params.id)
         //const search =
         await this.props.dispatch (getBook( undefined, undefined, undefined, genre, undefined, undefined ))
         this.setState({
@@ -31,9 +30,7 @@ class CardList extends React.Component {
     }
 
     render() {
-        // console.log('url', this.props.match)
         const {books} = this.state
-        // console.log("book", books)
         return(
             <Row style={{justifyContent:'center'}}>
                 <div className="book-list">

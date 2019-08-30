@@ -1,8 +1,9 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input} from 'reactstrap';
 import { Link } from 'react-router-dom'
 import { addBook } from '../../Publics/Actions/book';
 import { connect } from 'react-redux'
+import { FormGroup } from 'react-bootstrap';
 // import Axios from 'axios'
 
 class AddModal extends React.Component {
@@ -17,8 +18,15 @@ class AddModal extends React.Component {
                 date_released: '',
                 genre: '',
                 availability: ''
-            }
+            },
+            genreList: []
     };
+    }
+
+    componentDidMount = () => {
+        this.setState({
+            genreList: this.props.genres.genresList,
+        })
     }
 
     toggle = () => {
@@ -42,6 +50,8 @@ class AddModal extends React.Component {
     }
 
     render() {
+        const {genreList} = this.state
+        console.log('genreadd', this)
         return (
             <div>
                 <Link onClick={this.toggle} className="sidelist">Add Book</Link>
@@ -75,8 +85,17 @@ class AddModal extends React.Component {
                             </div>
                             <div className="row">
                                 <div className="form-group col-md-12">
-                                    <label>Genre:</label>
-                                    <input name="genre_id" type="text" value={this.country} onChange={this.handleForm} className="form-control" />
+                                <label>Genre:</label>
+                                    <FormGroup as="select" name="genre_id" onChange={this.handleChange}  >
+                                    
+                                        {/* {genreList.length !== 0 ? genreList.map((genre) => {
+                                            const selected = this.state.genre_id === genre.genre_id ? 'selected':''
+                                            return <option {...selected} value={genre.genre_id} key={genre.genre_id}> {genre.genre_name} </option>
+                                            })
+                                            :<option>Loading...</option>
+                                        } */}
+                                        <Input type="select" name="select" id="exampleSelect" />
+                                    </FormGroup>
                                 </div>
                             </div>
                             <div className="row">
@@ -101,6 +120,7 @@ class AddModal extends React.Component {
 const MapStateToProps = state => {
     return {
         books: state.books,
+        genres: state.genres
     }
 }
 

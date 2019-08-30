@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-// import { Router } from 'react-router-dom'
+import { BrowserRouter as Router, Route} from 'react-router-dom'
 
 import CardList from '../../component/card-list/CardList.component'
 import SlideView from '../../component/carousel/carousel'
-import {NavHead} from '../../component/navhead/NavHead'
+import NavHead from '../../component/navhead/NavHead'
 
 import '../home/home.css'
 
@@ -17,20 +17,39 @@ class Menu extends React.Component {
             <React.Fragment>
                 <NavHead />
                 <Container style={{margin:'10px',maxWidth:"none"}}>
-                    {/* <Router 
-                        path='/'
+                    <Route 
+                        path='/home'
                         exact={true}
                         render={({history}) => {
-                            return (
-                                <Fragment>
-                                    <SlideView />
-                                    <CardList history={history}/>
-                                </Fragment>
+                            return(
+                                <React.Fragment>
+                                    <SlideView key={this.props.books}/>
+                                    <CardList />
+                                </React.Fragment>
                             )
                         }}
-                    /> */}
-                    <SlideView key={this.props.books} />
-                    <CardList />
+                    />
+                    <Route 
+                        path='/home/explore'
+                        exact={true}
+                        render={({history}) => {
+                            return <CardList key={window.location.href} />
+                        }}
+                    />
+                    <Route
+                        path='/home/genre/:genre'
+                        exact={true}
+                        render={({url}) => {
+                            return <CardList match={this.props.match}/>
+                        }}
+                    />
+                    <Route
+                        path='/home/year/:year'
+                        exact={true}
+                        render={({url}) => {
+                            return <CardList />
+                        }}
+                    />
                 </Container>
             </React.Fragment>
         )

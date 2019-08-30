@@ -13,12 +13,6 @@ class SlideView extends React.Component {
         }
     }
 
-    // componentDidMount() {
-    //     Axios.get('http://localhost:3030/book')
-    //         .then (book => this.setState({books: book.data.data}))
-    //         .catch (err => console.log ('error =', err));
-    // }
-
     componentDidMount = async() => {
         await this.props.dispatch (getBook( undefined, undefined, undefined, undefined, undefined, undefined ))
         this.setState({
@@ -40,7 +34,7 @@ class SlideView extends React.Component {
                                 <img src={book.image} alt="Error" style={{maxWidth: '1340px'}}/>
                                 <p className="legend">{book.title}</p>
                             </div>)
-                    }): <p>asasasasa</p>
+                    }): <p>Loading....</p>
                 }
             </Carousel>
         );

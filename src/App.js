@@ -6,8 +6,6 @@ import Home from './pages/home/home'
 import Login from './pages/login/login'
 import Register from './pages/register/register'
 import DetailBook from './pages/detail-book/detail-book'
-import GenreBook from './pages/genre-book/genre-book'
-import Explore from './pages/explore/explore'
 import store from './Publics/Store'
 
 import './App.css';
@@ -18,23 +16,31 @@ const App = () => {
     <Router>
 
         <Switch>
-          <Route path={'/'} 
+          <Route
+            path={'/'}
+            exact={true}
+            render={() => {
+              return window.localStorage.getItem("token") !== null ? 
+              <Redirect to="./home"/>
+              :
+              <Redirect to="./login"/>;
+            }}
+          />
+          <Route path={'/home'} 
             exact 
             render={({history}) => {
-            return <Home history={history} />
+            return (<Home history={history} />)
           }} /> 
-          <Route path={'/login'} component={Login} />
-          <Route path={'/register'} component={Register} />
-          <Route path={'/detail_book/:id'} component={DetailBook} />
-          <Route path={'/explore'} component={Explore} />
-          <Route path={'/genre/:id'} 
-            component={GenreBook}
-            // render={(props)=>{
-            //   return <GenreBook {...props} />
-            // }}
+          <Route path={'/login'}
+            component={Login} 
           />
-          <Route path={'/year/:id'} component={GenreBook} />
-          <Redirect to="/" />
+          <Route path={'/register'}
+            component={Register}
+            />
+          <Route path={'/detail_book/:id'}
+            component={DetailBook} 
+          />
+          {/* <Redirect to="/" /> */}
         </Switch>
       
     </Router>
