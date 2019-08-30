@@ -3,7 +3,7 @@ import React from 'react';
 import { Modal, Button, Container, Row, Col, Form} from 'react-bootstrap';
 import { getGenre } from '../../Publics/Actions/genre'
 import { connect } from 'react-redux';
-import { editBook } from '../../Publics/Actions/book';
+import { editBook, getBook } from '../../Publics/Actions/book';
 
 class ModalEditBook extends React.Component {
     constructor(props){
@@ -40,18 +40,19 @@ class ModalEditBook extends React.Component {
     //edit book form must show current book detail
     componentDidMount = async() => {
         await this.props.dispatch (getGenre())
+        // await this.props.dispatch (getBook())
         this.setState ({
             genreList: this.props.genres.genresList,
-            formData: {
-                title: this.props.bookDetailPro.title,
-                image: this.props.bookDetailPro.image,
-            }
+            // formData: {
+            //     title: this.props.books.bookDetail.title,
+            //     image: this.props.books.bookDetail.image,
+            // }
         })
     }
 
 
     render(){
-        // console.log('propsbook', this.props)
+        console.log('statebook', this.state)
         const {genreList, formData} = this.state
         return(
             <Modal size="lg" show={this.props.open} onHide={this.props.hide}>
@@ -111,6 +112,7 @@ class ModalEditBook extends React.Component {
 
 const MapStateToProps = state => {
     return {
+        books: state.books,
         genres: state.genres,
     }
 }

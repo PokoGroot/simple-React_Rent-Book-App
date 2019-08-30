@@ -33,7 +33,7 @@ class NavHead extends React.Component {
         this.setState({
             level: this.props.users.userProfile.level
         })
-        console.log('props',this.props)
+        // console.log('props',this.props)
     }
 
     keywordSearch = async() => {

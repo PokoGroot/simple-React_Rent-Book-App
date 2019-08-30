@@ -50,7 +50,7 @@ class AddModal extends React.Component {
     }
 
     render() {
-        console.log('form',this.state.formData)
+        // console.log('form',this.state.formData)
         const {genreList} = this.state
         return (
             <div>

@@ -39,14 +39,14 @@ class Menu extends React.Component {
                     <Route
                         path='/home/genre/:id'
                         exact={true}
-                        render={({url}) => {
-                            return <CardList match={this.props.match}/>
+                        Component={({url}) => {
+                            return <CardList match={this.props.match} address={`http://localhost:3030/book/genre/${url.match.params.genre}`} />
                         }}
                     />
                     <Route
                         path='/home/year/:year'
                         exact={true}
-                        render={({url}) => {
+                        Component={({url}) => {
                             return <CardList />
                         }}
                     />

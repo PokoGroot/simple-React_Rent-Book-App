@@ -27,7 +27,7 @@ class TimeDropdown extends React.Component{
                 {listYear.length > 0 ? 
                 listYear.map((year) => {
                 return (
-                    <NavDropdown.Item href={`/year/${year.year}`} key={year.year}>{year.year}</NavDropdown.Item>
+                    <NavDropdown.Item href={`/home/year/${year.year}`} key={year.year}>{year.year}</NavDropdown.Item>
                 )
                 }): <NavDropdown.Item href="#/"><Spinner animation="grow" size="sm"/> Loading...</NavDropdown.Item>}
             </NavDropdown>

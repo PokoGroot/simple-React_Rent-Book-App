@@ -47,8 +47,7 @@ class DetailBook extends React.Component {
         await this.props.dispatch(deleteBook(id))
     }
 
-    // let gen = bookDetail.genre_id
-    // if(gen == 2){return 'Non-Fiction'} else return {'sasa'}
+    handleBorrow = async() => {}
 
     render(){
         const { bookDetail } = this.state
@@ -97,13 +96,13 @@ class DetailBook extends React.Component {
                         </Card>
                             {this.state.level == 'admin' ? 
                             <div>
-                                <Button variant="warning" className="float-right btn-borrow"><b>Borrow</b></Button><br/>
+                                <Button variant="warning" className="float-right btn-borrow" onClick={this.handleBorrow}><b>Borrow</b></Button><br/>
                             </div>:''}
                         </Col>
                     </Row>
                 </Container>
                 <ModalEditBook
-                    bookDetailPro={ this.props.books.bookDetail}
+                    bookDetailPro={ bookDetail }
                     open={this.state.openModalEdit}
                     hide={() => this.setState({openModalEdit: false})}
                 />
