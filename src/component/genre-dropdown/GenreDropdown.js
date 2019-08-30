@@ -20,8 +20,8 @@ class GenreDropdown extends React.Component{
         })
     }
 
-    handleGenre = (id) => {
-        window.location.href = `http://localhost:3000/home/genre/${id}`
+    handleGenre = (name) => {
+        window.location.href = `http://localhost:3000/home/genre/${name}`
     }
 
     render() {
@@ -33,7 +33,7 @@ class GenreDropdown extends React.Component{
                 listGenre.map((genre) => {
                 return (
                     <NavDropdown.Item 
-                        key={genre.genre_id} name='sortGenre' onClick={() => this.handleGenre(genre.genre_id)}  
+                        key={genre.genre_id} name='sortGenre' onClick={() => this.handleGenre(genre.genre_name)}  
                         value={genre.genre_name}
                     >{genre.genre_name}</NavDropdown.Item>
                 )

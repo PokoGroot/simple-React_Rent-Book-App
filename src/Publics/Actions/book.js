@@ -1,18 +1,11 @@
 import Axios from 'axios'
 const token = localStorage.token
 
-export const getBook = (title = null, sort = 'book_id', availability = null, genre = null, year = null, page = null, order = null) => {
-    const searchTitle = title ? `search=${title}` : ''
-    let searchSort =  sort != null ? `&sortby=${sort}` : ''
-    const searchAvailability = availability ? `&availability=${availability}` : ''
-    const searchGenre = genre ? `&genre_id=${genre}` : ''
-    const searchPage = page ? `&page=${page}` : ''
-    const searchOrder = order ? `&orderby=${order}` : ''
-    const searchYear = year ? `&year=${year}` : ``
-    let searchUrl = searchTitle + searchSort + searchAvailability + searchGenre + searchPage + searchOrder + searchYear
+export const getBook = (address) => {
+    let url = `${address}`
     return {
         type: 'GET_BOOKS',
-        payload: Axios.get(`http://localhost:3030/book?${searchUrl}`)
+        payload: Axios.get(`${url}`)
     }
 }
 
@@ -36,8 +29,8 @@ export const editBook = (data, id) => {
     return {
         type: 'EDIT_BOOK',
         payload: Axios.patch(`http://localhost:3030/book/${id}`,
-                        data,
-                        { headers: {Authorization: token}})
+                data,
+                { headers: {Authorization: token}})
     }
 }
 
@@ -45,6 +38,13 @@ export const deleteBook = (id) => {
     return {
         type: 'DELETE_BOOK',
         payload: Axios.delete(`http://localhost:3030/book/${id}`,
-                        { headers: {Authorization: token}})
+                { headers: {Authorization: token}})
+    }
+}
+
+export const addSearch = (formSearch) => {
+    return {
+        type: 'ADD_SEARCH_FORM',
+        payload: {search: formSearch}
     }
 }

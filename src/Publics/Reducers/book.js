@@ -2,6 +2,7 @@
 const initialState = {
     booksList: [],
     bookDetail: [],
+    searchForm: [],
     errMessage: '',
     isLoading: false,
     isRejected: false,
@@ -110,6 +111,28 @@ const books = ( state = initialState, action) => {
                 ...state,
                 isLoading:false,
                 isFulfilled:true
+            }
+        case 'ADD_SEARCH_FORM_PENDING':
+            return{
+                ...state,
+                isLoading:true,
+                isRejected:false,
+                isFulfilled:false,
+            }
+        case 'ADD_SEARCH_FORM_REJECTED':
+            return{
+                ...state,
+                isLoading:false,
+                isRejected:true,
+                errMessage:action.payload.response.data.message,
+            }
+        case 'ADD_SEARCH_FORM_FULFILLED':
+            // state.booksList.unshift(action.payload.data.data)
+            return{
+                ...state,
+                isLoading:false,
+                isFulfilled:true,
+                searchForm: action.payload.data
             }
         default: 
             return state
