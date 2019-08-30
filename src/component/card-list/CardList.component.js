@@ -13,14 +13,20 @@ class CardList extends React.Component {
         super(props)
         this.state = {
             books: [],
-            address: props.address
+            address: props.address,
+            search: props.books
         }
     }
 
     componentDidMount = async () => {
-        let lower = this.props.match.params.id
-        const address = this.props.address + lower
-        await this.props.dispatch (getBook(address))
+        this.getBook()
+    }
+
+    getBook = async() => {
+        const search = this.props.search !== null ? '&search='+this.props.search : ''
+        const addressSort = this.props.match ? this.props.address+this.props.match.params.id : "http://localhost:3030/book/?sortby=book_id"+search
+        console.log('s', this.props)
+        await this.props.dispatch (getBook(addressSort), this.props.search)
         this.setState({
             books: this.props.books.booksList.data
         })
@@ -31,7 +37,8 @@ class CardList extends React.Component {
     }
 
     render() {
-        console.log('checkCardprops', this)
+        // console.log('checkCardprops', this.state.search)
+        console.log('ss', this.props)
         const {books} = this.state
         return(
             <Row style={{justifyContent:'center'}}>

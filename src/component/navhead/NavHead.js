@@ -28,17 +28,10 @@ class NavHead extends React.Component {
     }
 
     componentDidMount = async() => {
-        this.keywordSearch()
         await this.props.dispatch(getProfile())
         this.setState({
             level: this.props.users.userProfile.level
         })
-        // console.log('props',this.props)
-    }
-
-    keywordSearch = async() => {
-        const search = this.state.search
-        await this.props.dispatch (getBook( search, undefined, undefined, undefined, undefined, undefined ))
     }
 
     onSetSidebarOpen = (open) => {
@@ -51,6 +44,14 @@ class NavHead extends React.Component {
     handleSearch = (e) => {
         this.setState({search: e.target.value})
     }
+    sendForm = (e) => {
+        if(e.key === 'Enter'){
+            // this.props.dispatch(addSearch(this.state.search))
+            this.props.history.push(`/home?search=${this.state.search}`)
+            //e.preventDefault()
+            // this.props.dispatch(getBook(`http://localhost:3030/book/?sortby=book_id&search=watch`))
+        }
+    }
 
     logOut = () => {
         localStorage.removeItem('token')
@@ -58,7 +59,6 @@ class NavHead extends React.Component {
     }
 
     render() {
-
 
         const styleSideBar = {
             sidebar: { 
@@ -105,14 +105,14 @@ class NavHead extends React.Component {
                             <GenreDropdown />
                             <TimeDropDown />
                         </Nav>
-                        <Form inline style={{marginRight: '270px'}}>
+                        {/* <Form inline style={{marginRight: '270px'}}> */}
                             <InputGroup.Prepend>
                                 <InputGroup.Text id="inputGroupPrepend" className="icon-search">
                                     <FontAwesomeIcon icon={faSearch}/>
                                 </InputGroup.Text>
                             </InputGroup.Prepend>
-                            <FormControl type="text" placeholder="Search book" className="mr-sm-2 btn-search"  style={{width:'350px'}} onChange={this.handleSearch} />
-                        </Form>
+                            <FormControl history={this.props.history} type="text" placeholder="Search book" className="mr-sm-2 btn-search"  style={{width:'350px'}} onChange={this.handleSearch} onKeyPress={this.sendForm} />
+                        {/* </Form> */}
                         <Link to='/'>
                             <img src={logo} style={{width: '50px'}} alt="Not Found"/>
                         </Link>

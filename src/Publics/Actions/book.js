@@ -1,8 +1,9 @@
 import Axios from 'axios'
 const token = localStorage.token
 
-export const getBook = (address) => {
-    let url = `${address}`
+export const getBook = (address, search) => {
+    let url = address ? `${address}` : `http://localhost:3030/book/?sortby=book_id`
+    if (search !== undefined) url += `&search=${search}`
     return {
         type: 'GET_BOOKS',
         payload: Axios.get(`${url}`)
@@ -42,9 +43,9 @@ export const deleteBook = (id) => {
     }
 }
 
-export const addSearch = (formSearch) => {
-    return {
-        type: 'ADD_SEARCH_FORM',
-        payload: {search: formSearch}
-    }
-}
+// export const addSearch = (formSearch) => {
+//     return {
+//         type: 'ADD_SEARCH_FORM',
+//         payload: {search: formSearch}
+//     }
+// }

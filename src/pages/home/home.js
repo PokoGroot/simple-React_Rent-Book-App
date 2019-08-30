@@ -15,16 +15,17 @@ class Menu extends React.Component {
 
         return (
             <React.Fragment>
-                <NavHead />
+                <NavHead history={this.props.history} />
                 <Container style={{margin:'10px',maxWidth:"none"}}>
                     <Route 
                         path='/home'
                         exact={true}
                         render={({history}) => {
+                            let params = new URLSearchParams(window.location.search)
                             return(
                                 <React.Fragment>
                                     <SlideView key={this.props.books}/>
-                                    <CardList />
+                                    <CardList search={params.get('search')} history={history} />
                                 </React.Fragment>
                             )
                         }}

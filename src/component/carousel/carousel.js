@@ -14,7 +14,7 @@ class SlideView extends React.Component {
     }
 
     componentDidMount = async() => {
-        await this.props.dispatch (getBook( undefined, undefined, undefined, undefined, undefined, undefined ))
+        await this.props.dispatch (getBook())
         this.setState({
             dataBook : this.props.books.booksList.data
         })
