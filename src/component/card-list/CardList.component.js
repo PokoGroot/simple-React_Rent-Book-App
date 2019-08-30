@@ -38,7 +38,7 @@ class CardList extends React.Component {
 
     render() {
         // console.log('checkCardprops', this.state.search)
-        console.log('ss', this.props)
+        // console.log('ss', this.props)
         const {books} = this.state
         return(
             <Row style={{justifyContent:'center'}}>

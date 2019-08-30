@@ -1,7 +1,7 @@
 import React from 'react'
 import Sidebar from 'react-sidebar';
 import { Link } from 'react-router-dom'
-import {  Navbar, Nav, Form, InputGroup, FormControl } from 'react-bootstrap'
+import {  Navbar, Nav, InputGroup, FormControl } from 'react-bootstrap'
 import { connect } from 'react-redux'
 
 
@@ -11,7 +11,7 @@ import logo from '../../source/logo.png'
 import user from '../../source/user.png'
 
 import { getProfile } from '../../Publics/Actions/user'
-import { getBook } from '../../Publics/Actions/book'
+// import { getBook } from '../../Publics/Actions/book'
 import GenreDropdown from '../genre-dropdown/GenreDropdown'
 import TimeDropDown from '../time-dropdown/TimeDropdown'
 import AddModal from '../add-modal/AddModal'
