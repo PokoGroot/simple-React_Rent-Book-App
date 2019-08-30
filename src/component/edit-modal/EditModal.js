@@ -1,5 +1,5 @@
 import React from 'react';
-import Axios from 'axios';
+// import Axios from 'axios';
 import { Modal, Button, Container, Row, Col, Form} from 'react-bootstrap';
 import { getGenre } from '../../Publics/Actions/genre'
 import { connect } from 'react-redux';
@@ -8,8 +8,15 @@ import { editBook } from '../../Publics/Actions/book';
 class ModalEditBook extends React.Component {
     constructor(props){
         super(props)
+        console.log('props', props)
         this.state = {
-            formData:{},
+            formData:{
+                title: '',
+                image: "",
+                date_released: '',
+                genre_id: '',
+                description: '',
+            },
             genreList: [],
         }
     }
@@ -32,18 +39,20 @@ class ModalEditBook extends React.Component {
 
     componentDidMount = async() => {
         await this.props.dispatch (getGenre())
-        // const newwformData = this.props
-        // console.log('aa', this.props)
         this.setState ({
             genreList: this.props.genres.genresList,
-        })
-        // console.log('1', newwformData)
+            formData: {
+                title: this.props.bookDetailPro.title,
+                image: this.props.bookDetailPro.image,
+            }
+        },()=>{console.log('call', this.state.formData)})
     }
 
 
     render(){
-        console.log(this.props)
+        console.log('propsbook', this.props)
         const {genreList, formData} = this.state
+        console.log('form', formData)
         return(
             <Modal size="lg" show={this.props.open} onHide={this.props.hide}>
                 <Modal.Header className="modal-header" closeButton style={{borderBottom:"none"}}>

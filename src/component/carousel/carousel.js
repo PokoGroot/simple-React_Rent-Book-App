@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Carousel } from 'react-responsive-carousel';
+import { getBook } from '../../Publics/Actions/book'
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
@@ -8,7 +9,7 @@ class SlideView extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            dataaa: []
+            dataBook: []
         }
     }
 
@@ -18,15 +19,16 @@ class SlideView extends React.Component {
     //         .catch (err => console.log ('error =', err));
     // }
 
-    componentDidMount = () => {
+    componentDidMount = async() => {
+        await this.props.dispatch (getBook( undefined, undefined, undefined, undefined, undefined, undefined ))
         this.setState({
-            dataaa : this.props.books.booksList.data
+            dataBook : this.props.books.booksList.data
         })
     }
 
     render() {
         console.log('dataa',this.props)
-        const books = this.state.dataaa
+        const books = this.state.dataBook
         return (
             <Carousel
                 showStatus={false}

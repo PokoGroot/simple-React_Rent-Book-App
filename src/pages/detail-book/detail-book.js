@@ -9,7 +9,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { getBookById } from '../../Publics/Actions/book'
+import { getBookById, deleteBook } from '../../Publics/Actions/book'
 import './detail-book.css';
 import ModalEditBook from '../../component/edit-modal/EditModal'
 import ModalDelete from '../../component/delete-modal/DeleteModal'
@@ -37,14 +37,14 @@ class DetailBook extends React.Component {
         this.setState({openModalEdit: open})
     }
 
-    openModalDelete = (open) => {
+    openModalDelete = async(open) => {
+        let id = this.props.match.params.id
         this.setState({openModalDelete: open})
+        await this.props.dispatch(deleteBook(id))
     }
 
     render(){
-        // console.log('detail', this)
         const { bookDetail } = this.state
-        // console.log('boo',bookDetail)
 
         return(
             <React.Fragment>
@@ -59,7 +59,7 @@ class DetailBook extends React.Component {
                         </Col>
                         <Col md={2} className="float-right text-center" style={{fontSize:"20px", color:"#FFF"}}>
                             <span><a href="javascript:void(0)" style={{color: '#fff', textDecoration: 'none'}} onClick={() => this.openModalEdit(true)}>Edit</a></span>&nbsp;&nbsp; 
-                            <span><a href="javascript:void(0)" style={{color: '#fff', textDecoration: 'none'}} onClick={this.DeleteBook}>Delete</a></span>
+                            <span><a href="javascript:void(0)" style={{color: '#fff', textDecoration: 'none'}} onClick={() => this.openModalDelete(true)}>Delete</a></span>
                         </Col>
                     </Row>
                     <Row style={{padding:"3vh", paddingLeft:"40px"}}>
@@ -89,12 +89,7 @@ class DetailBook extends React.Component {
                     </Row>
                 </Container>
                 <ModalEditBook
-                    book_id={bookDetail.book_id}
-                    title={bookDetail.title}
-                    description={bookDetail.description}
-                    image={bookDetail.image}
-                    date_released={bookDetail.date_released}
-                    genre_id={bookDetail.genre_id}
+                    bookDetailPro={ this.props.books.bookDetail}
                     open={this.state.openModalEdit}
                     hide={() => this.setState({openModalEdit: false})}
                 />
@@ -102,7 +97,10 @@ class DetailBook extends React.Component {
                 <ModalDelete
                     title={bookDetail.title}
                     open={this.state.openModalDelete}
-                    hide={() => this.setState({openModalDelete: false})}
+                    hide={() => {
+                        this.setState({openModalDelete: false},
+                        ()=>{window.location.replace('/home')})
+                        }}
                     />
             </React.Fragment>
         )
