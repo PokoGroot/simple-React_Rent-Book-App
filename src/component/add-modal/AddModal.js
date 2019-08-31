@@ -3,8 +3,6 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Input} from 'reacts
 import { Link } from 'react-router-dom'
 import { addBook } from '../../Publics/Actions/book';
 import { connect } from 'react-redux'
-import { FormGroup } from 'react-bootstrap';
-// import Axios from 'axios'
 
 class AddModal extends React.Component {
     constructor(props) {
@@ -99,8 +97,8 @@ class AddModal extends React.Component {
                                 <div className="form-group col-md-12">
                                     <label>Availability:</label>
                                     <Input type="select" name="availability" onChange={this.handleForm}>
-                                        <option value={1} key={1}> Available</option>
-                                        <option value={2} key={2}> Not Available</option>
+                                        <option value='1' key={1}> Available</option>
+                                        <option value='0' key={2}> Not Available</option>
                                     </Input>
                                 </div>
                             </div>

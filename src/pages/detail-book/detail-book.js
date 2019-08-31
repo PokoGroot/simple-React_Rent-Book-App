@@ -23,7 +23,7 @@ class DetailBook extends React.Component {
             openModalEdit : false,
             openModalDelete : false,
             bookDetail: [],
-            level: ''
+            userInfo: {}
         }
     }
 
@@ -33,7 +33,7 @@ class DetailBook extends React.Component {
         await this.props.dispatch(getProfile())
         this.setState({
             bookDetail: this.props.books.bookDetail,
-            level: this.props.users.userProfile.level
+            userInfo: this.props.users.userProfile
         })
     }
 
@@ -52,6 +52,7 @@ class DetailBook extends React.Component {
     render(){
         const { bookDetail } = this.state
         const datee = new Date(bookDetail.date_released)
+        const level = this.state.userInfo.level
 
         return(
             <React.Fragment>
@@ -65,7 +66,7 @@ class DetailBook extends React.Component {
                             </Link>
                         </Col>
                         <Col md={2} className="float-right text-center" style={{fontSize:"20px", color:"#FFF"}}>
-                            {this.state.level == 'admin' ?
+                            {level == 'admin' ?
                             <div>
                                 <span><a href="javascript:void(0)" style={{color: '#fff', textDecoration: 'none'}} onClick={() => this.openModalEdit(true)}>Edit</a></span>&nbsp;&nbsp; 
                                 <span><a href="javascript:void(0)" style={{color: '#fff', textDecoration: 'none'}} onClick={() => this.openModalDelete(true)}>Delete</a></span>
@@ -74,7 +75,7 @@ class DetailBook extends React.Component {
                     </Row>
                     <Row style={{padding:"3vh", paddingLeft:"40px"}}>
                         <Col md={8}>
-                            <Button variant="warning" className="btn-genre"><b>{ bookDetail.genre_id }</b></Button><br/>
+                            <Button variant="warning" className="btn-genre"><b>{ bookDetail.genre_name }</b></Button><br/>
                             <Row>
                                 <Col md={10}>
                                     <h1>{bookDetail.title}</h1>
@@ -94,7 +95,7 @@ class DetailBook extends React.Component {
                         <Card style={{ width: '10rem',marginLeft:"30vh"}}>
                             <Card.Img variant="top" src={bookDetail.image} className="book-cover"/>
                         </Card>
-                            {this.state.level == 'admin' ? 
+                            {level == 'admin' ? 
                             <div>
                                 <Button variant="warning" className="float-right btn-borrow" onClick={this.handleBorrow}><b>Borrow</b></Button><br/>
                             </div>:''}

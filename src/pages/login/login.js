@@ -2,6 +2,7 @@ import React from 'react';
 import { FormGroup, Label, Input, Button, CustomInput } from 'reactstrap'
 import { Redirect, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import SweetAlert from 'react-bootstrap-sweetalert'
 
 import { login } from '../../Publics/Actions/user'
 
@@ -17,6 +18,7 @@ class Login extends React.Component {
                 password: '',
             },
             loggedIn: false,
+            modalLoginFalse: false
         }
     }
 
@@ -34,31 +36,30 @@ class Login extends React.Component {
         const data = this.state.formData
         await this.props.dispatch(login(data))
             .then(res =>{
-                // console.log(res)
-                window.localStorage.setItem("token", res.action.payload.data.token)
-                this.setState({
-                    loggedIn: true
-                })
+                console.log(res)
+                if(res.value.data.status === 401){
+                    this.setState({
+                        modalLoginFalse: true
+                    })
+                }else{
+                    window.localStorage.setItem("token", res.action.payload.data.token)
+                    this.loggingIn()
+                }
             })
-            // .then((res) => {
-            //     if(res.data.status === 401){
-            //         alert("Your Email or Password Incorrect");
-            //     }else{
-            //         this.loggingIn()
-            //     }
-            // })
-            // .catch(function (error) {
-            //     console.log(error);
-            // });
+            .catch(function (error) {
+                console.log(error);
+            });
     }
     loggingIn(){
-        // localStorage.setItem('token', this.props.users.token)
-        window.location.reload()
+        this.setState({
+            loggedIn: true
+        })
+        // window.location.reload()
     }
 
     render(){
-        if(localStorage.getItem('token')) return <Redirect to="/home"/>
-        else
+        // if(localStorage.getItem('token')) return <Redirect to="/home"/>
+        // else
 
         return (
             <div className="container-fluid">
@@ -103,6 +104,11 @@ class Login extends React.Component {
                         </div>
                     </div>
                     </div>
+                </div>
+                <div>
+                    <SweetAlert title="Here's a message!" onConfirm={() => {this.setState({modalLoginFalse: false})}} show={this.state.modalLoginFalse}>
+                        It's pretty, isn't it?
+                    </SweetAlert>
                 </div>
             </div>
         )

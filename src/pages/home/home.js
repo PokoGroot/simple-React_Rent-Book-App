@@ -11,7 +11,7 @@ import '../home/home.css'
 class Menu extends React.Component {
     render() {
         let token = localStorage.getItem('token')
-        if(!token) window.location.href = 'http://localhost:3000/login'
+        if(!token) window.location = '/login'
 
         return (
             <React.Fragment>

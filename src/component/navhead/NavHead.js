@@ -23,14 +23,14 @@ class NavHead extends React.Component {
         this.state = {
             sidebarOpen: false,
             search: '',
-            level: ''
+            userInfo: {}
         };
     }
 
     componentDidMount = async() => {
         await this.props.dispatch(getProfile())
         this.setState({
-            level: this.props.users.userProfile.level
+            userInfo: this.props.users.userProfile
         })
     }
 
@@ -46,10 +46,8 @@ class NavHead extends React.Component {
     }
     sendForm = (e) => {
         if(e.key === 'Enter'){
-            // this.props.dispatch(addSearch(this.state.search))
             this.props.history.push(`/home?search=${this.state.search}`)
             //e.preventDefault()
-            // this.props.dispatch(getBook(`http://localhost:3030/book/?sortby=book_id&search=watch`))
         }
     }
 
@@ -59,6 +57,7 @@ class NavHead extends React.Component {
     }
 
     render() {
+        const level = this.state.userInfo.level
 
         const styleSideBar = {
             sidebar: { 
@@ -79,7 +78,7 @@ class NavHead extends React.Component {
                 <div style={{marginTop:"8vh", marginLeft:"4vh"}}>
                     <Link className="sidelist" to="/home/explore">Explore</Link>
                     <Link className="sidelist">History</Link>
-                    {this.state.level == 'admin' ? 
+                    {level == 'admin' ? 
                     <AddModal />:''}
                     <h6><a href="javascript:void(0)" className='sidelist' onClick={this.logOut}>Log out</a></h6>
                 </div>

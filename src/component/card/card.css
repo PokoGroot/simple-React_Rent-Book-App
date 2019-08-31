@@ -3,7 +3,7 @@
     flex-direction: column;
 
     width: 320px;
-    height: 440px;
+    height: 480px;
     left: 379px;
     top: 574px;
 
@@ -48,7 +48,7 @@
 
     overflow:hidden;
     
-    font-size: 15px;
+    font-size: 13,5px;
     line-height: 20px;
 
     color: #424242;
