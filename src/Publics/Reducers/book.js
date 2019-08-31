@@ -2,6 +2,7 @@
 const initialState = {
     booksList: [],
     bookDetail: [],
+    yearsList: [],
     searchForm: '',
     errMessage: '',
     isLoading: false,
@@ -11,6 +12,26 @@ const initialState = {
 
 const books = ( state = initialState, action) => {
     switch (action.type){
+        case 'GET_YEARS_PENDING':
+            return{
+                ...state,
+                isLoading: true,
+                isRejected: false,
+                isFulfilled: false
+            }
+        case 'GET_YEARS_REJECTED':
+            return{
+                ...state,
+                isLoading: false,
+                isRejected: true,
+            }
+        case 'GET_YEARS_FULFILLED':
+            return{
+                ...state,
+                isLoading: false,
+                isFulfilled: true,
+                yearsList: action.payload.data.data
+            }
         case 'GET_BOOKS_PENDING':
             return {
                 ...state,

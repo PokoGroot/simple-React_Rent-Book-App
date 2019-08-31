@@ -66,10 +66,10 @@ class DetailBook extends React.Component {
                             </Link>
                         </Col>
                         <Col md={2} className="float-right text-center" style={{fontSize:"20px", color:"#FFF"}}>
-                            {level == 'admin' ?
+                            {level === 'admin' ?
                             <div>
-                                <span><a href="javascript:void(0)" style={{color: '#fff', textDecoration: 'none'}} onClick={() => this.openModalEdit(true)}>Edit</a></span>&nbsp;&nbsp; 
-                                <span><a href="javascript:void(0)" style={{color: '#fff', textDecoration: 'none'}} onClick={() => this.openModalDelete(true)}>Delete</a></span>
+                                <span><a href="#" style={{color: '#fff', textDecoration: 'none'}} onClick={() => this.openModalEdit(true)}>Edit</a></span>&nbsp;&nbsp; 
+                                <span><a href="#" style={{color: '#fff', textDecoration: 'none'}} onClick={() => this.openModalDelete(true)}>Delete</a></span>
                             </div>:''}
                         </Col>
                     </Row>
@@ -95,7 +95,7 @@ class DetailBook extends React.Component {
                         <Card style={{ width: '10rem',marginLeft:"30vh"}}>
                             <Card.Img variant="top" src={bookDetail.image} className="book-cover"/>
                         </Card>
-                            {level == 'admin' ? 
+                            {level === 'admin' ? 
                             <div>
                                 <Button variant="warning" className="float-right btn-borrow" onClick={this.handleBorrow}><b>Borrow</b></Button><br/>
                             </div>:''}

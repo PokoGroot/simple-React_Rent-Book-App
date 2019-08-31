@@ -66,29 +66,29 @@ class NavHead extends React.Component {
                 position: 'fixed'
             }
         }
-        const contentSidebar = (
-            <div>
-                <span className="float-right" style={{fontSize: "3vh", marginRight:"2vh"}}>
-                    <FontAwesomeIcon icon={faBars} onClick={() => this.onSetSidebarClose(false)}/>
-                </span>
 
-                <img src={user} alt="Not Found" className="userImage"/>
-                <center><h5>Fadil Himawan A</h5></center>
-
-                <div style={{marginTop:"8vh", marginLeft:"4vh"}}>
-                    <Link className="sidelist" to="/home/explore">Explore</Link>
-                    <Link className="sidelist">History</Link>
-                    {level == 'admin' ? 
-                    <AddModal />:''}
-                    <h6><a href="javascript:void(0)" className='sidelist' onClick={this.logOut}>Log out</a></h6>
-                </div>
-            </div>
-        )
 
         return (
             <React.Fragment>
                 <Sidebar
-                    sidebar= {contentSidebar}
+                    sidebar= {
+                        <div>
+                            <span className="float-right" style={{fontSize: "3vh", marginRight:"2vh"}}>
+                                <FontAwesomeIcon icon={faBars} onClick={() => this.onSetSidebarClose(false)}/>
+                            </span>
+
+                            <img src={user} alt="Not Found" className="userImage"/>
+                            <center><h5>{this.state.userInfo.fullname}</h5></center>
+
+                            <div style={{marginTop:"8vh", marginLeft:"4vh"}}>
+                                <Link className="sidelist" to="/home/explore">Explore</Link>
+                                <Link className="sidelist">History</Link>
+                                {level === 'admin' ? 
+                                <AddModal />:''}
+                                <h6><a href="javascript:" className='sidelist' onClick={this.logOut}>Log out</a></h6>
+                            </div>
+                        </div>
+                    }
                     open= {this.state.sidebarOpen}
                     onSetOpen= {this.onSetSidebarOpen}
                     styles= {styleSideBar}
@@ -104,14 +104,12 @@ class NavHead extends React.Component {
                             <GenreDropdown />
                             <TimeDropDown />
                         </Nav>
-                        {/* <Form inline style={{marginRight: '270px'}}> */}
                             <InputGroup.Prepend>
                                 <InputGroup.Text id="inputGroupPrepend" className="icon-search">
                                     <FontAwesomeIcon icon={faSearch}/>
                                 </InputGroup.Text>
                             </InputGroup.Prepend>
                             <FormControl history={this.props.history} type="text" placeholder="Search book" className="mr-sm-2 btn-search"  style={{width:'350px'}} onChange={this.handleSearch} onKeyPress={this.sendForm} />
-                        {/* </Form> */}
                         <Link to='/'>
                             <img src={logo} style={{width: '50px'}} alt="Not Found"/>
                         </Link>

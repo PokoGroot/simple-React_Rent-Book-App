@@ -1,6 +1,13 @@
 import Axios from 'axios'
 const token = localStorage.token
 
+export const getYear = () => {
+    return {
+        type: 'GET_YEARS',
+        payload: Axios.get ('http://localhost:3030/book/y/year')
+    }
+}
+
 export const getBook = (address, search) => {
     let url = address ? `${address}` : `http://localhost:3030/book/?sortby=book_id`
     if (search !== undefined) url += `&search=${search}`

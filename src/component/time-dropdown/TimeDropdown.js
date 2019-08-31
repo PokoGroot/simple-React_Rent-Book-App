@@ -1,7 +1,7 @@
 import React from 'react'
 // import Axios from 'axios'
 import { NavDropdown, Spinner } from 'react-bootstrap'
-import { getYear } from '../../Publics/Actions/year'
+import { getYear } from '../../Publics/Actions/book'
 import { connect } from 'react-redux'
 
 class TimeDropdown extends React.Component{
@@ -14,9 +14,8 @@ class TimeDropdown extends React.Component{
 
     componentDidMount = async() => {
         await this.props.dispatch(getYear())
-        // console.log(this.props.years.yearsList)
         this.setState({
-            listYear: this.props.years.yearsList
+            listYear: this.props.books.yearsList
         })
     }
 
@@ -36,7 +35,7 @@ class TimeDropdown extends React.Component{
 }
 const MapStateToProps = state => {
     return {
-        years: state.years
+        books: state.books
     }
 }
 export default connect (MapStateToProps) (TimeDropdown)

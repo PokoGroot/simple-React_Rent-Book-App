@@ -1,22 +1,14 @@
 import React from 'react';
-// import Axios from 'axios';
 import { Modal, Button, Container, Row, Col, Form} from 'react-bootstrap';
 import { getGenre } from '../../Publics/Actions/genre'
 import { connect } from 'react-redux';
-import { editBook, getBook } from '../../Publics/Actions/book';
+import { editBook } from '../../Publics/Actions/book';
 
 class ModalEditBook extends React.Component {
     constructor(props){
         super(props)
-        console.log('props', props)
         this.state = {
-            formData:{
-                // title: '',
-                // image: "",
-                // date_released: '',
-                // genre_id: '',
-                // description: '',
-            },
+            formData:{},
             genreList: [],
         }
     }

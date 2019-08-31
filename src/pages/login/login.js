@@ -36,7 +36,6 @@ class Login extends React.Component {
         const data = this.state.formData
         await this.props.dispatch(login(data))
             .then(res =>{
-                console.log(res)
                 if(res.value.data.status === 401){
                     this.setState({
                         modalLoginFalse: true
@@ -54,12 +53,12 @@ class Login extends React.Component {
         this.setState({
             loggedIn: true
         })
-        // window.location.reload()
+        window.location.reload()
     }
 
     render(){
-        // if(localStorage.getItem('token')) return <Redirect to="/home"/>
-        // else
+        if(localStorage.getItem('token')) return <Redirect to="/home"/>
+        else
 
         return (
             <div className="container-fluid">
@@ -106,9 +105,7 @@ class Login extends React.Component {
                     </div>
                 </div>
                 <div>
-                    <SweetAlert title="Here's a message!" onConfirm={() => {this.setState({modalLoginFalse: false})}} show={this.state.modalLoginFalse}>
-                        It's pretty, isn't it?
-                    </SweetAlert>
+                    <SweetAlert title={this.props.user.errMessage} onConfirm={() => {this.setState({modalLoginFalse: false})}} show={this.state.modalLoginFalse} />
                 </div>
             </div>
         )
@@ -117,7 +114,7 @@ class Login extends React.Component {
 
 const mapStateToProps = state => {
     return{
-            user: state.user
+            user: state.users
     }
 }
 export default connect (mapStateToProps) (Login);

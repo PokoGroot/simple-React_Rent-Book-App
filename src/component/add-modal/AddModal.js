@@ -14,7 +14,7 @@ class AddModal extends React.Component {
                 description: '',
                 image: '',
                 date_released: '',
-                availability: ''
+                availability: '1'
             },
             genreList: []
     };
@@ -90,15 +90,6 @@ class AddModal extends React.Component {
                                             })
                                             :<option>Loading...</option>
                                         }
-                                    </Input>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="form-group col-md-12">
-                                    <label>Availability:</label>
-                                    <Input type="select" name="availability" onChange={this.handleForm}>
-                                        <option value='1' key={1}> Available</option>
-                                        <option value='0' key={2}> Not Available</option>
                                     </Input>
                                 </div>
                             </div>
