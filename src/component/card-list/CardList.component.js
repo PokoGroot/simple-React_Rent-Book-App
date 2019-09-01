@@ -31,7 +31,7 @@ class CardList extends React.Component {
     }
 
     handleGetDetails = (id) =>{
-        window.location.href = `http://localhost:3000/detail_book/${id}`
+        window.location.href = `${process.env.REACT_APP_DOMAIN}/detail_book/${id}`
     }
 
     render() {

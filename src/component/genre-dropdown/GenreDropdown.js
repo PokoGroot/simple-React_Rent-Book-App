@@ -21,7 +21,7 @@ class GenreDropdown extends React.Component{
     }
 
     handleGenre = (name) => {
-        window.location.href = `http://localhost:3000/home/genre/${name}`
+        window.location.href = `${process.env.REACT_APP_DOMAIN}/home/genre/${name}`
     }
 
     render() {

@@ -39,7 +39,7 @@ class Register extends React.Component {
                     alert("Email already in use!");
                 }else{
                     alert("Register Success");
-                    window.location.href="http://localhost:3000/login"
+                    window.location.href= `${process.env.REACT_APP_DOMAIN}/login`
                 }
             })
             .catch(function (error) {
