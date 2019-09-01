@@ -4,14 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import SweetAlert from 'react-bootstrap-sweetalert'
 
-import { borrowBook, returnBook } from "../../Publics/Actions/transaction"
 import { getProfile } from '../../Publics/Actions/user'
 import { getBookById, deleteBook } from '../../Publics/Actions/book'
 import './detail-book.css';
 import ModalEditBook from '../../component/edit-modal/EditModal'
 import ModalDelete from '../../component/delete-modal/DeleteModal'
+import ModalRentBook from '../../component/borrow-modal/RentModal'
+import ModalReturnBook from '../../component/borrow-modal/ReturnModal'
 
 class DetailBook extends React.Component {
     constructor(props) {
@@ -20,12 +20,10 @@ class DetailBook extends React.Component {
             book_id : this.props.match.params.id,
             openModalEdit : false,
             openModalDelete : false,
+            openModalRent: false,
+            openModalReturn: false,
             bookDetail: [],
             userInfo: {},
-            borrowData: {},
-            returnData: {
-                book_id: this.props.match.params.id
-            }
         }
     }
 
@@ -36,10 +34,6 @@ class DetailBook extends React.Component {
         this.setState({
             bookDetail: this.props.books.bookDetail,
             userInfo: this.props.users.userProfile,
-            borrowData: {
-                user_id: this.props.users.userProfile.id,
-                book_id: this.props.match.params.id
-            }
         })
     }
 
@@ -53,21 +47,23 @@ class DetailBook extends React.Component {
         await this.props.dispatch(deleteBook(id))
     }
 
-    handleBorrow = async() => {
-        await this.props.dispatch(borrowBook(this.state.borrowData))
-        window.location.reload()
+    openModalRent = (open) => {
+        this.setState({openModalRent: open})
     }
 
-    handleReturn = async() => {
-        await this.props.dispatch(returnBook(this.state.returnData))
-        window.location.reload()
+    openModalReturn = (open) => {
+        this.setState({openModalReturn: open})
     }
+
+    // handleReturn = async() => {
+    //     await this.props.dispatch(returnBook(this.state.returnData))
+    //     window.location.reload()
+    // }
 
     render(){
         const { bookDetail } = this.state
         const datee = new Date(bookDetail.date_released)
         const level = this.state.userInfo.level
-        console.log(this.state)
 
         return(
             <React.Fragment>
@@ -113,10 +109,10 @@ class DetailBook extends React.Component {
                             {level === 'admin' ? 
                                 (bookDetail.availability) === 1 ?
                                     <div>
-                                        <Button variant="warning" className="float-right btn-borrow" onClick={() => this.handleBorrow()}><b>Borrow</b></Button><br/>
+                                        <Button variant="warning" className="float-right btn-borrow" onClick={() => this.openModalRent(true)}><b>Borrow</b></Button><br/>
                                     </div>:
                                     <div>
-                                        <Button variant="danger" className="float-right btn-borrow" onClick={() => this.handleReturn()}><b>Return</b></Button><br/>
+                                        <Button variant="danger" className="float-right btn-borrow" onClick={() => this.openModalReturn(true)}><b>Return</b></Button><br/>
                                     </div>
                                     :''}
                         </Col>
@@ -136,7 +132,18 @@ class DetailBook extends React.Component {
                         ()=>{window.location.replace('/home')})
                         }}
                     />
+
+                <ModalRentBook
+                    bookDetailPro={ bookDetail }
+                    open={this.state.openModalRent}
+                    hide={() => this.setState({openModalRent: false})}
+                />
                 
+                <ModalReturnBook
+                    bookDetailPro={ bookDetail }
+                    open={this.state.openModalReturn}
+                    hide={() => this.setState({openModalReturn: false})}
+                />
             </React.Fragment>
         )
     }
