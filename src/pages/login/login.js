@@ -41,7 +41,7 @@ class Login extends React.Component {
                         modalLoginFalse: true
                     })
                 }else{
-                    window.localStorage.setItem("token", res.action.payload.data.token)
+                    localStorage.setItem("token", res.action.payload.data.token)
                     this.loggingIn()
                 }
             })
