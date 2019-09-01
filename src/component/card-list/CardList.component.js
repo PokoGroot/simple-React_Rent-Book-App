@@ -22,7 +22,7 @@ class CardList extends React.Component {
 
     getBook = async() => {
         const search = this.props.search !== null ? '&search='+this.props.search : ''
-        const addressSort = this.props.match ? this.props.address+this.props.match.params.id : "http://localhost:3030/book/?sortby=book_id"+search
+        const addressSort = this.props.match ? this.props.address+this.props.match.params.id : `${process.env.REACT_APP_HOST}/book/?sortby=book_id`+search
         console.log('s', this.props)
         await this.props.dispatch (getBook(addressSort), this.props.search)
         this.setState({

@@ -30,7 +30,7 @@ class Register extends React.Component {
 
     handleSubmit = (e) => {
         const data = this.state.formData
-        Axios.post('http://localhost:3030/user/register', data)
+        Axios.post(`${process.env.REACT_APP_HOST}/user/register`, data)
             .then((res) => {
                 console.log(res)
                 if(res.data.status === 401){

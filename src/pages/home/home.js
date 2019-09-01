@@ -42,14 +42,14 @@ class Menu extends React.Component {
                         path='/home/genre/:id'
                         exact={true}
                         render={(props) => {
-                            return <CardList {...props}  address={`http://localhost:3030/book/g/genre/`} />
+                            return <CardList {...props}  address={`${process.env.REACT_APP_HOST}/book/g/genre/`} />
                         }}
                     />
                     <Route
                         path='/home/year/:id'
                         exact={true}
                         render={(props) => {
-                            return <CardList {...props} address={`http://localhost:3030/book/y/year/`} />
+                            return <CardList {...props} address={`${process.env.REACT_APP_HOST}/book/y/year/`} />
                         }}
                     />
                     <Route 
