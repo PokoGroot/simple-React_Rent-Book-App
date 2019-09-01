@@ -1,14 +1,12 @@
 import React from "react";
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import { Container, Row, Col, Button, Card} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import SweetAlert from 'react-bootstrap-sweetalert'
 
+import { borrowBook, returnBook } from "../../Publics/Actions/transaction"
 import { getProfile } from '../../Publics/Actions/user'
 import { getBookById, deleteBook } from '../../Publics/Actions/book'
 import './detail-book.css';
@@ -23,7 +21,11 @@ class DetailBook extends React.Component {
             openModalEdit : false,
             openModalDelete : false,
             bookDetail: [],
-            userInfo: {}
+            userInfo: {},
+            borrowData: {},
+            returnData: {
+                book_id: this.props.match.params.id
+            }
         }
     }
 
@@ -33,7 +35,11 @@ class DetailBook extends React.Component {
         await this.props.dispatch(getProfile())
         this.setState({
             bookDetail: this.props.books.bookDetail,
-            userInfo: this.props.users.userProfile
+            userInfo: this.props.users.userProfile,
+            borrowData: {
+                user_id: this.props.users.userProfile.id,
+                book_id: this.props.match.params.id
+            }
         })
     }
 
@@ -47,12 +53,21 @@ class DetailBook extends React.Component {
         await this.props.dispatch(deleteBook(id))
     }
 
-    handleBorrow = async() => {}
+    handleBorrow = async() => {
+        await this.props.dispatch(borrowBook(this.state.borrowData))
+        window.location.reload()
+    }
+
+    handleReturn = async() => {
+        await this.props.dispatch(returnBook(this.state.returnData))
+        window.location.reload()
+    }
 
     render(){
         const { bookDetail } = this.state
         const datee = new Date(bookDetail.date_released)
         const level = this.state.userInfo.level
+        console.log(this.state)
 
         return(
             <React.Fragment>
@@ -96,9 +111,14 @@ class DetailBook extends React.Component {
                             <Card.Img variant="top" src={bookDetail.image} className="book-cover"/>
                         </Card>
                             {level === 'admin' ? 
-                            <div>
-                                <Button variant="warning" className="float-right btn-borrow" onClick={this.handleBorrow}><b>Borrow</b></Button><br/>
-                            </div>:''}
+                                (bookDetail.availability) === 1 ?
+                                    <div>
+                                        <Button variant="warning" className="float-right btn-borrow" onClick={() => this.handleBorrow()}><b>Borrow</b></Button><br/>
+                                    </div>:
+                                    <div>
+                                        <Button variant="danger" className="float-right btn-borrow" onClick={() => this.handleReturn()}><b>Return</b></Button><br/>
+                                    </div>
+                                    :''}
                         </Col>
                     </Row>
                 </Container>
@@ -116,6 +136,7 @@ class DetailBook extends React.Component {
                         ()=>{window.location.replace('/home')})
                         }}
                     />
+                
             </React.Fragment>
         )
     }
@@ -124,7 +145,8 @@ class DetailBook extends React.Component {
 const MapStateToProps = state => {
     return {
         books: state.books,
-        users: state.users
+        users: state.users,
+        transactions: state.transactions
     }
 }
 
