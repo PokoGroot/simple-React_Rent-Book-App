@@ -1,11 +1,9 @@
 import React from 'react'
-// import Axios from 'axios'
 import { connect } from 'react-redux'
+import { Row, Spinner } from 'react-bootstrap'
 
 import { Card } from '../card/card.component'
-
 import './CardList.css'
-import { Row, Spinner } from 'react-bootstrap';
 import { getBook } from '../../Publics/Actions/book'
 
 class CardList extends React.Component {

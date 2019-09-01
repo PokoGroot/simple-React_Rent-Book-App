@@ -52,6 +52,14 @@ class Menu extends React.Component {
                             return <CardList {...props} address={`http://localhost:3030/book/y/year/`} />
                         }}
                     />
+                    <Route 
+                        path='/home/history'
+                        exact={true}
+                        render={({history}) => {
+                            let params = new URLSearchParams(window.location.search)
+                            return <CardList search={params.get('search')} history={history} key={window.location.href}/>
+                        }}
+                    />
                 </Container>
             </React.Fragment>
         )

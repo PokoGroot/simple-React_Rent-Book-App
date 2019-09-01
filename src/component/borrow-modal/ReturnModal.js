@@ -1,14 +1,22 @@
 import React from 'react';
 import { Modal, Button, Container, Row, Col, Form} from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { returnBook } from '../../Publics/Actions/transaction';
+import { returnBook, getOneBorrow } from '../../Publics/Actions/transaction';
 
 class ModalReturnBook extends React.Component {
     constructor(props){
         super(props)
         this.state = {
             formData:{},
+            borrowedBook:{},
         }
+    }
+
+    componentDidMount = async() => {
+        await this.props.dispatch (getOneBorrow(this.props.books.bookDetail.book_id))
+        this.setState({
+            borrowedBook: this.state
+        })
     }
 
     handleChange = (e) => {
@@ -26,7 +34,8 @@ class ModalReturnBook extends React.Component {
     }
 
     render(){
-        console.log('statebook', this.props.bookDetailPro.book_id)
+        console.log('statebook', this.state)
+        console.log('props', this.props)
         const today = new Date()
         const borrowDate = today.toDateString()
         const returnDay = new Date()
@@ -43,25 +52,25 @@ class ModalReturnBook extends React.Component {
                         <Row className="mb-4">
                             <Col md={3}>User ID</Col>
                             <Col md={9}>
-                                <Form.Control type="text" name="user_id" placeholder="User ID" onChange={this.handleChange} />
+                                <Form.Control required type="text" name="user_id" placeholder="User ID" onChange={this.handleChange} />
                             </Col>
                         </Row>
                         <Row className="mb-4">
-                            <Col md={3}>Borrow Date:</Col>
+                            <Col md={3}>Return Date</Col>
                             <Col md={9}>
                                 <p>{borrowDate}</p>
                             </Col>
                         </Row>
                         <Row className="mb-4">
-                            <Col md={3}>Return Date</Col>
+                            <Col md={3}>Return Date by user</Col>
                             <Col md={9}>
-                                <p>{returnDate}</p>
+                                <p>{borrowDate}</p>
                             </Col>
                         </Row>
                         <Row className="mb-4">
-                            <Col md={3}>Return Date</Col>
+                            <Col md={3}>Bill Rent</Col>
                             <Col md={9}>
-                                <p>{returnDate}</p>
+                                <p>RP. 18000</p>
                             </Col>
                         </Row>
                     </Container>

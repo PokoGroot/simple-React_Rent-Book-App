@@ -51,6 +51,28 @@ const transactions = (state = initialState, action)=>{
                 isFulfilled:true,
                 errMessage:action.payload.data.message
             }
+        case 'GET_ONE_BORROW_PENDING':
+            return{
+                ...state,
+                isLoading:true,
+                isRejected:false,
+                isFulfilled:false,
+            }
+        case 'GET_ONE_BORROW_REJECTED':
+            return{
+                ...state,
+                isLoading:false,
+                isRejected:true,
+                errMessage:action.payload.response.data.message
+                }
+        case 'GET_ONE_BORROW_FULFILLED':
+            return{
+                ...state,
+                isLoading:false,
+                isFulfilled:true,
+                errMessage:action.payload.data.message,
+                borrowedBook:action.payload.data.data
+            }
         default:
             return state
     }

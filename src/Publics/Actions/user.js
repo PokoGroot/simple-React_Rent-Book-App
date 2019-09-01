@@ -26,3 +26,15 @@ export const getProfile = () => {
         )
     }
 }
+
+export const getHistoryRentByUser = () => {
+    return {
+        type: 'GET_USER_HISTORY',
+        payload: Axios.get("http://localhost:3030/trans/",{
+            headers:{
+                Authorization : token
+                }
+        }
+        )
+    }
+}

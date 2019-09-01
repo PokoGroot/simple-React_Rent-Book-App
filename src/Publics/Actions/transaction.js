@@ -28,3 +28,16 @@ export const returnBook = (data) => {
         )
     }
 }
+
+export const getOneBorrow = (id) => {
+    return {
+        type:'GET_ONE_BORROW',
+        payload: Axios.get(`http://localhost:3030/trans/${id}`,
+        {
+            headers:{
+            Authorization : token
+            }
+        }
+        )
+    }
+}

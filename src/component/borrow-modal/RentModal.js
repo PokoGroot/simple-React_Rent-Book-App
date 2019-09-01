@@ -26,8 +26,6 @@ class ModalRentBook extends React.Component {
     }
 
     render(){
-        console.log('statebook', this.state)
-        console.log('props', this.props)
         const today = new Date()
         const borrowDate = today.toDateString()
         const returnDay = new Date()
@@ -44,11 +42,11 @@ class ModalRentBook extends React.Component {
                         <Row className="mb-4">
                             <Col md={3}>User ID</Col>
                             <Col md={9}>
-                                <Form.Control type="text" name="user_id" placeholder="User ID" onChange={this.handleChange} />
+                                <Form.Control required type="text" name="user_id" placeholder="User ID" onChange={this.handleChange} />
                             </Col>
                         </Row>
                         <Row className="mb-4">
-                            <Col md={3}>Borrow Date:</Col>
+                            <Col md={3}>Borrow Date</Col>
                             <Col md={9}>
                                 <p>{borrowDate}</p>
                             </Col>

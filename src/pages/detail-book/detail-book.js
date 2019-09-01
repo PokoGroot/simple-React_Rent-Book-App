@@ -140,7 +140,7 @@ class DetailBook extends React.Component {
                 />
                 
                 <ModalReturnBook
-                    bookDetailPro={ bookDetail }
+                    bookDetail={ bookDetail }
                     open={this.state.openModalReturn}
                     hide={() => this.setState({openModalReturn: false})}
                 />
